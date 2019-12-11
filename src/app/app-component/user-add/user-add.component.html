@@ -1,0 +1,66 @@
+<div fxLayout="row" fxLayoutAlign="center" >
+        <mat-card fxFlex="90" >
+                <div align="right">
+                        <a _ngcontent-jle-c224="" routerLink="/users" mat-fab="" style="background:#2196f3" class="mat-fab mat-button-base mat-warn">
+                            <i class="material-icons dp48">arrow_back</i>
+                          <div matripple="" class="mat-button-ripple mat-ripple mat-button-ripple-round">
+                          </div><div class="mat-button-focus-overlay"></div>
+                        </a>
+                </div>
+          <div fxLayout="row">
+            <div fxFlex="5" class="action-blurb" fxFlexOffset="2" ></div>
+            <div fxFlex="80" class="action-blurb" fxFlexOffset="5">
+                    <div align="center">
+                            <mat-card-header>
+                                <mat-card-title>User-Add</mat-card-title>
+                            </mat-card-header>
+                    </div>
+                    
+                    <div class="example-container" align="center"  > 
+                        <form  class="form" [formGroup]="userForm" (ngSubmit)="userForm.valid && onuserFormSubmit()" novalidate>                          
+                            <div align="center">
+                                <mat-form-field class="form-element">
+                                    <input matInput required formControlName="users_name"  [(ngModel)] = "user.users_name" placeholder="User Name"/>
+                                </mat-form-field>
+                            </div>
+                            <div align="center">
+                                <mat-form-field class="form-element">
+                                    <input matInput required formControlName="users_id"  [(ngModel)] = "user.users_id" placeholder="User Id"/>
+                                </mat-form-field>
+                            </div>
+                            <div align="center">
+                                <mat-form-field class="form-element">
+                                        <!-- <input matInput required formControlName="product_desc"  [(ngModel)] = "user.product_desc" placeholder="Product Id"/> -->
+                                         <textarea  matInput formControlName="user_desc" [(ngModel)] = "user.user_desc" placeholder="User Descriptions"></textarea>
+                                </mat-form-field>
+                            </div>
+                            
+                            
+                            <div align="left">
+                                <mat-form-field>
+                                    <mat-select multiple placeholder = "Select the Product"  [(ngModel)] = "user.users_status" formControlName="users_status">
+                                        <mat-option *ngFor = "let product of products" 
+                                        [value] = "product.id">
+                                         {{product.product_name}}
+                                    </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                    <!-- <mat-form-field>
+                                        <mat-label>Select an option</mat-label>
+                                        <mat-select formControlName="users_status" [(ngModel)]="user.users_status">
+                                          <mat-option>None</mat-option>
+                                          <mat-option value="option1">Option 1</mat-option>
+                                          <mat-option value="option2">Option 2</mat-option>
+                                          <mat-option value="option3">Option 3</mat-option>
+                                        </mat-select>
+                                      </mat-form-field> -->
+                                
+                            </div>                          
+                            <button mat-raised-button type="submit" [disabled] = "!userForm.valid"  color= "primary" class="button" >Submit Form</button>                           
+                        </form>
+                    </div>
+            </div>
+              <div fxFlex="5" class="action-blurb" fxFlexOffset="2"></div>
+          </div>
+      </mat-card>
+      </div> 

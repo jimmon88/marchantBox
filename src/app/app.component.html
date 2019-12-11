@@ -1,0 +1,17 @@
+<!-- <div>
+        <router-outlet></router-outlet>
+ </div> -->
+ <div class="lessons-list" *ngIf="LoginViewpage else loading">
+    <div>
+            <app-main-nav>
+                <router-outlet></router-outlet>
+            </app-main-nav>
+    </div>
+        
+</div>
+
+<ng-template #loading>
+    <div>
+        <router-outlet></router-outlet>
+    </div> 
+</ng-template>

@@ -1,0 +1,77 @@
+<div fxLayout="row" fxLayoutAlign="center" >
+    
+        <mat-card fxFlex="90">
+                <div align="right">
+                        <a _ngcontent-jle-c224="" routerLink="/user-add" mat-fab="" style="background:#2196f3" class="mat-fab mat-button-base mat-primary">
+                          <i class="material-icons ng-scope"></i>
+                          <div matripple="" class="mat-button-ripple mat-ripple mat-button-ripple-round">
+                          </div><div class="mat-button-focus-overlay"></div>
+                        </a>
+                </div>
+          <div fxLayout="row">
+              <div fxFlex="5" class="action-blurb" fxFlexOffset="2" ></div>
+              <div fxFlex="80" class="action-blurb" fxFlexOffset="5">
+                    <div fxLayout fxLayoutAlign="center center">
+                            <mat-form-field fxFlex="40%">
+                              <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
+                            </mat-form-field>
+                    </div>
+                  <div align="right">
+                      <mat-card-header>
+                          <mat-card-title>User-List</mat-card-title>
+                      </mat-card-header>
+                  </div>
+            
+              <div class="mat-elevation-z6">
+                <div>
+                    <mat-table [dataSource]="dataSource" matSort>
+                      <ng-container matColumnDef="user_name">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>User Name </mat-header-cell>
+                        <mat-cell *matCellDef="let user"> {{user.user_name}} </mat-cell>
+                      </ng-container>
+                      <ng-container matColumnDef="users_id">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> User Id </mat-header-cell>
+                        <mat-cell *matCellDef="let user"> {{user.users_id}} </mat-cell>
+                      </ng-container>
+                      <ng-container matColumnDef="user_desc">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> User Description </mat-header-cell>
+                        <mat-cell *matCellDef="let user"> {{user.user_desc}} </mat-cell>
+                      </ng-container>
+                      <ng-container matColumnDef="action">
+                        <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+                        <mat-cell *matCellDef="let user">
+                            <button mat-icon-button [routerLink]="['/users-edit',user.id ]"><mat-icon>launch</mat-icon></button>
+                            <button mat-icon-button color="warn"><mat-icon>delete_outline</mat-icon></button>
+                        </mat-cell>
+                      </ng-container>
+                        <ng-container matColumnDef="loading" >
+                            <mat-footer-cell *matFooterCellDef colspan="6"> 
+                                <mat-progress-spinner [mode]="'indeterminate'">
+                                </mat-progress-spinner> 
+                            </mat-footer-cell>                    
+                        </ng-container>
+                        <ng-container matColumnDef="noData" >
+                            <mat-footer-cell *matFooterCellDef colspan="6">
+                                No data Avaliable ... 
+                            </mat-footer-cell>                    
+                        </ng-container>
+                      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                        <!-- <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':dataSource!=null && dataSource.data.length==0 }"></mat-footer-row> -->
+                      <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':dataSource!=null}"></mat-footer-row>
+                    </mat-table>
+                    <mat-paginator 
+                        [length]="dataSource?.data.length"
+                        [pageIndex]="0"
+                        [pageSize]="50"
+                        [pageSizeOptions]="[25, 50, 100, 250]">
+                    </mat-paginator>
+                  </div>
+                </div>
+                  
+                          
+          </div>
+              <div fxFlex="5" class="action-blurb" fxFlexOffset="2"></div>
+          </div>
+      </mat-card>
+      </div> 

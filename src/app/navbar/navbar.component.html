@@ -1,0 +1,43 @@
+    <div>
+    <mat-grid-list cols="3" [style.background]="'white'">
+            <mat-grid-tile></mat-grid-tile>       
+            <mat-grid-tile>
+            <mat-card  [style.background]="'#f1f1f1'"  routerLink="/login" (mouseleave)="hover=false"
+                (mouseover)="hover=true" style="padding: 55px;" class="">
+                <div align="center">
+                <i flex="10"  class="material-icons flex-10"></i>
+                </div>
+                <div>     
+                <mat-card-header [ngStyle]="{backgroundColor: hover==true  ? 'lightgrey' : '' }">
+                    <mat-card-title [ngStyle]="{cursor: hover==true  ? 'pointer' : '' }" style="text-align: center;">Basic Login</mat-card-title>
+                    <mat-card-subtitle [ngStyle]="{cursor: hover==true  ? 'pointer' : '' }" style="text-align: center;" >Login with MerchantsBox username/password </mat-card-subtitle>
+                </mat-card-header>
+                </div>
+            </mat-card>
+            </mat-grid-tile>
+            
+            <!-- <mat-grid-tile>
+                <mat-card  [style.background]="'#f1f1f1'"  (click)="auth.login()" (mouseleave)="hover=false"
+                    (mouseover)="hover=true" style="padding: 55px;" class="">
+                    <div align="center">
+                    <i flex="10"  class="material-icons flex-10"></i>
+                    </div>
+                    <div>     
+                    <mat-card-header [ngStyle]="{backgroundColor: hover==true  ? 'lightgrey' : '' }">
+                        <mat-card-title [ngStyle]="{cursor: hover==true  ? 'pointer' : '' }" style="text-align: center;">Basic Login</mat-card-title>
+                        <mat-card-subtitle [ngStyle]="{cursor: hover==true  ? 'pointer' : '' }" style="text-align: center;" >Login with MerchantsBox username/password </mat-card-subtitle>
+                    </mat-card-header>
+                    </div>
+                </mat-card>
+            </mat-grid-tile> -->
+  
+            <mat-grid-tile> </mat-grid-tile>
+    </mat-grid-list>
+    
+</div>
+<!-- <div *ngIf="auth.loggedIn">
+        <app-main-nav>
+            <router-outlet></router-outlet>
+        </app-main-nav>
+</div> -->
+     

@@ -1,0 +1,40 @@
+<div>
+    <mat-grid-list cols="3" [style.background]="'white'">
+            <mat-grid-tile></mat-grid-tile>       
+            <mat-grid-tile>
+            <mat-card >
+                <div align = "left">
+                    <small>Authentication Required</small>
+                </div>                
+                <div>
+                    <form  class="form" [formGroup]="loginForm" (ngSubmit)="loginForm.valid && onLoginSubmit()"  novalidate>
+                        <div class="example-container" align="center">
+                                <div *ngIf="showErrorMessage">
+                                        <h1>Invalid username and password Please try again</h1>
+                                </div>
+                                    <div align="center">
+                                        <mat-form-field class="form-element">
+                                            <input matInput required formControlName="username" [(ngModel)] = "login.username" placeholder="User Name"/>
+                                        </mat-form-field>
+                                    </div>
+                                    <div align="center">
+                                        <mat-form-field class="form-element">
+                                            <input type="password" matInput required formControlName="password" [(ngModel)] = "login.password" placeholder="Password"/>
+                                        </mat-form-field>
+                                    </div>                                                        
+                                <button mat-raised-button type="submit" [disabled] = "!loginForm.valid"  color= "primary" class="button" >Submit</button>
+                                <button mat-raised-button type="submit"  routerLink="/" color= "primary">Cancel</button>                           
+                       
+                        </div>
+                    </form>
+
+                </div>
+            </mat-card>
+            </mat-grid-tile>
+  
+            <mat-grid-tile> </mat-grid-tile>
+    </mat-grid-list>
+    
+</div>
+
+     

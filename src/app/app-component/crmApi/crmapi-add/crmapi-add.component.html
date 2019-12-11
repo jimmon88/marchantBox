@@ -1,0 +1,70 @@
+<div fxLayout="row" fxLayoutAlign="center" >
+        <mat-card fxFlex="90" >
+                <div align="right">
+                        <a _ngcontent-jle-c224="" routerLink="/api-list" mat-fab="" style="background:#2196f3" class="mat-fab mat-button-base mat-warn">
+                            <i class="material-icons dp48">arrow_back</i>
+                          <div matripple="" class="mat-button-ripple mat-ripple mat-button-ripple-round">
+                          </div><div class="mat-button-focus-overlay"></div>
+                        </a>
+                </div>
+          <div fxLayout="row">
+            <div fxFlex="5" class="action-blurb" fxFlexOffset="2" ></div>
+            <div fxFlex="80" class="action-blurb" fxFlexOffset="5">
+                    <div align="center">
+                            <mat-card-header>
+                                <mat-card-title>API-Add</mat-card-title>
+                            </mat-card-header>
+                    </div>
+                    <div class="example-container" align="center"  >
+                    <form  class="form" [formGroup]="crmForm" (ngSubmit)="crmForm.valid && oncrmFormSubmit()"  novalidate>                          
+                            <div align="center">
+                                <mat-form-field class="form-element">
+                                    <input matInput required formControlName="crm_label"  [(ngModel)] = "crm.crm_label" placeholder="Label"/>
+                                </mat-form-field>
+                            </div>
+                            <div align="center">
+                                    <!-- <mat-form-field>
+                                            <mat-select  placeholder = "Select Api Type"  [(ngModel)] = "crm.crm_apiType" formControlName="crm_apiType">
+                                                <mat-option *ngFor = "let products of products" 
+                                                [value] = "products.id">
+                                                 {{products.product_name}}
+                                            </mat-option>
+                                            </mat-select>
+                                    </mat-form-field>   -->
+                                    
+                                    <mat-form-field>
+                                            <mat-select placeholder = "Select Api Type"  [(ngModel)] = "crm.crm_apiType" formControlName="crm_apiType">
+                                              <mat-option value="apis-1">LIMELIGHT</mat-option>
+                                              <mat-option value="apis-2">KONNEKTIVE</mat-option>
+                                              <mat-option value="apis-3">RESPONSE</mat-option>
+                                              <mat-option value="apis-4">VELOX</mat-option>
+                                              <mat-option value="apis-5">EMANAGE</mat-option>
+                                            </mat-select>
+                                    </mat-form-field>
+                            </div>   
+                            <div align="center">
+                                <mat-form-field class="form-element">
+                                    <input matInput required formControlName="crm_apiEndpoint"  [(ngModel)] = "crm.crm_apiEndpoint" placeholder="Api Endpoint"/>
+                                </mat-form-field>
+                            </div>
+                            
+                            <div align="center">
+                                    <mat-form-field class="form-element">
+                                        <input matInput required formControlName="crm_apiUsername"  [(ngModel)] = "crm.crm_apiUsername" placeholder="Api Username"/>
+                                    </mat-form-field>
+                            </div>
+                            <div align="center">
+                                    <mat-form-field class="form-element">
+                                        <input matInput required formControlName="crm_apiPassword"  [(ngModel)] = "crm.crm_apiPassword" placeholder="Api Password"/>
+                                    </mat-form-field>
+                            </div>
+                          
+                            <button mat-raised-button type="submit" [disabled] = "!crmForm.valid"  color= "primary" class="button" >Submit Form</button>                           
+                    </form>
+                </div>
+                    
+            </div>
+              <div fxFlex="5" class="action-blurb" fxFlexOffset="2"></div>
+          </div>
+      </mat-card>
+      </div> 
