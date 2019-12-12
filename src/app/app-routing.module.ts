@@ -10,7 +10,6 @@ import { UserAddComponent } from './app-component/user-add/user-add.component';
 import { UserEditComponent } from './app-component/user-edit/user-edit.component';
 import { ProductsListComponent } from './app-component/products-list/products-list.component';
 import { UsersListComponent } from './app-component/users-list/users-list.component';
-import { CrmapiAddComponent } from './app-component/crmApi/crmapi-add/crmapi-add.component';
 import { CrmapiListComponent } from './app-component/crmApi/crmapi-list/crmapi-list.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { LoginCrmComponent } from './app-component/login-crm/login-crm.component';
@@ -56,10 +55,6 @@ const routes: Routes = [
   {
     path: 'users-edit/:id',
     component: UserEditComponent,
-  },
-  {
-    path: 'api-add',
-    component: CrmapiAddComponent,
   },
   {
     path: 'api-list',

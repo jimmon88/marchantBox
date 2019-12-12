@@ -1,0 +1,59 @@
+<h2 mat-dialog-title>
+    ADD CRM API DETAILS</h2>
+<mat-dialog-content>
+    <div fxLayout="row" fxLayoutAlign="space-between">
+        <form class="form" [formGroup]="crmForm" (ngSubmit)="crmForm.valid && oncrmFormSubmit()" novalidate>
+            <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="15px">
+                <div fxFlex="50" off>
+                    <mat-form-field class="form-element">
+                        <input matInput required formControlName="crm_label" [(ngModel)]="crm.crm_label" placeholder="Label" />
+                    </mat-form-field>
+                </div>
+                <div fxFlex="50">
+                    <mat-form-field>
+                        <mat-select placeholder="Select Api Type" [(ngModel)]="crm.crm_apiType" formControlName="crm_apiType">
+                            <mat-option *ngFor="let api of apis" [value]="api.value">
+                                {{api.viewValue}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <!-- <mat-form-field>
+                                <mat-select placeholder="Select Api Type" [(ngModel)]="crm.crm_apiType" formControlName="crm_apiType">
+                                    <mat-option value="apis-1">LIMELIGHT</mat-option>
+                                    <mat-option value="apis-2">KONNEKTIVE</mat-option>
+                                    <mat-option value="apis-3">RESPONSE</mat-option>
+                                    <mat-option value="apis-4">VELOX</mat-option>
+                                    <mat-option value="apis-5">EMANAGE</mat-option>
+                                </mat-select>
+                            </mat-form-field> -->
+                </div>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="15px">
+                <div fxFlex="50">
+                    <mat-form-field class="form-element">
+                        <input matInput required formControlName="crm_apiEndpoint" [(ngModel)]="crm.crm_apiEndpoint" placeholder="Api Endpoint" />
+                    </mat-form-field>
+                </div>
+
+                <div fxFlex="50">
+                    <mat-form-field class="form-element">
+                        <input matInput required formControlName="crm_apiUsername" [(ngModel)]="crm.crm_apiUsername" placeholder="Api Username" />
+                    </mat-form-field>
+                </div>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="15px">
+                <div fxFlex="50">
+                    <mat-form-field class="form-element">
+                        <input matInput required formControlName="crm_apiPassword" [(ngModel)]="crm.crm_apiPassword" placeholder="Api Password" />
+                    </mat-form-field>
+                </div>
+            </div>
+        </form>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions fxLayoutAlign="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+    <button mat-button [disabled]="!crmForm.valid" color="primary">Save</button>
+</mat-dialog-actions>

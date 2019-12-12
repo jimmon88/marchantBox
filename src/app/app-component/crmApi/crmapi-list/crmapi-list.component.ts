@@ -1,11 +1,12 @@
-import { Component, OnInit, AfterViewInit,ViewChild } from '@angular/core';
-import {DashboardService} from '../../../services/dashboard.service';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
+import { DashboardService } from '../../../services/dashboard.service';
 import { Location } from '@angular/common';
 import { AuthService } from '../../../auth.service';
 import { CrmapiListsItem } from '../../../model/apilist.model';
-import { Router,ActivatedRoute } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import { CookieService } from 'ngx-cookie-service';
-import { MatTableDataSource, MatSort, MatPaginator} from '@angular/material';
+import { MatTableDataSource, MatSort, MatPaginator, MatDialog } from '@angular/material';
+import { CrmapiAddComponent } from '../crmapi-add-modal/crmapi-add.component';
 
 @Component({
   selector: 'app-crmapi-list',
@@ -16,45 +17,48 @@ export class CrmapiListComponent implements OnInit {
 
   isLoading = true;
   cookiesVal;
-  
-  public displayedColumns = ['crm_label', 'crm_apiUsername', 'crm_apiPassword','crm_apiType','action'];
+
+  public displayedColumns = ['crm_label', 'crm_apiUsername', 'crm_apiPassword', 'crm_apiType', 'action'];
   public dataSource = new MatTableDataSource<CrmapiListsItem>();
- // @ViewChild(MatSort) sort: MatSort;
- @ViewChild(MatSort, {static: false}) sort: MatSort;
- @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+  // @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort, { static: false }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
 
-  constructor(public productService: DashboardService,private router: Router,
-    private location:Location,
+  constructor(public productService: DashboardService, private router: Router,
+    private location: Location,
     private cookieService: CookieService,
-    public auth: AuthService) { }
+    public auth: AuthService,
+    public dialog: MatDialog
+  ) { }
 
-    ngOnInit() {
+  ngOnInit() {
 
-      //this.cookiesVal = this.cookieService.get('cookiesVal');
-  
-      //   if (!this.cookiesVal) {
-      //     alert(this.auth.loggedIn);
-      //     this.location.replaceState('/');
-      //     this.router.navigate(['/']); 
-      // }
-      this.getAllCRMapis();
+    this.getAllCRMapis();
 
-  
-    }
-  //   ngAfterViewInit(): void {
-  //     this.dataSource.sort = this.sort;
-  //     this.dataSource.paginator = this.paginator;
-  
-  //  }
 
-   public getAllCRMapis = () => {
-    this.productService.getapiCrmData()
-    .subscribe(res => {
-      //this.isLoading = false;
-      this.dataSource.data = res as CrmapiListsItem[];
-      
-    })
   }
-  
+
+
+  public getAllCRMapis = () => {
+    this.productService.getapiCrmData()
+      .subscribe(res => {
+        this.dataSource.data = res as CrmapiListsItem[];
+
+      })
+  }
+
+  openDialog(): void {
+    let dialogRef = this.dialog.open(CrmapiAddComponent, {
+      width: '500px',
+      data: {}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      //this.animal = result;
+    });
+  }
+
+
 
 }
