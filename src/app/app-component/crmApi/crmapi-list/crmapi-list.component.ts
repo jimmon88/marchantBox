@@ -1,7 +1,6 @@
 import { Component, OnInit, AfterViewInit,ViewChild } from '@angular/core';
 import {DashboardService} from '../../../services/dashboard.service';
 import { Location } from '@angular/common';
-import { AuthService } from '../../../auth.service';
 import { CrmapiListsItem } from '../../../model/apilist.model';
 import { Router,ActivatedRoute } from "@angular/router";
 import { CookieService } from 'ngx-cookie-service';
@@ -26,31 +25,15 @@ export class CrmapiListComponent implements OnInit {
   constructor(public productService: DashboardService,private router: Router,
     private location:Location,
     private cookieService: CookieService,
-    public auth: AuthService) { }
+  ) { }
 
-    ngOnInit() {
-
-      //this.cookiesVal = this.cookieService.get('cookiesVal');
-  
-      //   if (!this.cookiesVal) {
-      //     alert(this.auth.loggedIn);
-      //     this.location.replaceState('/');
-      //     this.router.navigate(['/']); 
-      // }
-      this.getAllCRMapis();
-
-  
+    ngOnInit() {      
+      this.getAllCRMapis();  
     }
-  //   ngAfterViewInit(): void {
-  //     this.dataSource.sort = this.sort;
-  //     this.dataSource.paginator = this.paginator;
   
-  //  }
-
    public getAllCRMapis = () => {
     this.productService.getapiCrmData()
     .subscribe(res => {
-      //this.isLoading = false;
       this.dataSource.data = res as CrmapiListsItem[];
       
     })

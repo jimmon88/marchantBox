@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from './auth.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Router,ActivatedRoute } from "@angular/router";
 import {DashboardService} from './services/dashboard.service';
+import {AuthenticationService} from './services/authentication.service';
+import { User } from './model/user';
+
 
 
 
@@ -15,20 +17,18 @@ import {DashboardService} from './services/dashboard.service';
 export class AppComponent implements OnInit {
   sessionData;
   LoginViewpage;
-  constructor(public auth: AuthService,private router: Router,private productService: DashboardService,
-  ) {}
+  currentUser: User;
 
-  ngOnInit() {
-    this.sessionData = localStorage.getItem('userToken');
-    if(this.sessionData){
-      //alert(this.sessionData );
-      this.LoginViewpage = true;
-      this.router.navigate(['dashboards']); 
-    }else{
-      this.LoginViewpage = false;
-    }
-    
-    this.auth.localAuthSetup();
+  constructor(private authenticationService: AuthenticationService,private router: Router,private productService: DashboardService,
+  ) {
+    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
   }
 
+  ngOnInit() {
+
+  }
+  logout() {
+    this.authenticationService.logout();
+    this.router.navigate(['/login']);
+}
 }

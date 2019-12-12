@@ -5,19 +5,10 @@ import { HttpClient,HttpErrorResponse,HttpHeaders,HttpParams } from '@angular/co
 import { ProductsListsItem } from './../model/productlist.model';
 import { CrmapiListsItem } from './../model/apilist.model';
 import { UsersAddModelList } from './../model/userlist.model';
-import { AuthService } from '../auth.service';
 import { Router,ActivatedRoute } from "@angular/router";
+import { environment } from '../../environments/environment';
 
 
-
-  // const apiUrl = "http://127.0.0.1:8080/api/gets";
-  // const userGetUrl = "http://127.0.0.1:8080/api/getsUserEdit";
-  // const updateProduct = "http://127.0.0.1:8080/api/updateProduct";
-  // const updateProductname = "http://127.0.0.1:8080/api/updateProductname";
-  //  const apiUrl = this.auth.basicURLcommon+"api/gets";
-  //  const userGetUrl = this.auth.basicURLcommon+"api/getsUserEdit";
-  //  const updateProduct = this.auth.basicURLcommon+"api/updateProduct";
-  //  const updateProductname = this.auth.basicURLcommon+"api/updateProductname";
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -32,23 +23,23 @@ export class DashboardService {
   private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   
    auth0Subvalue;
-    apiUrl = this.auth.basicURLcommon+"api/gets";
-    userGetUrl = this.auth.basicURLcommon+"api/getsUserEdit";
-    updateProductURL = this.auth.basicURLcommon+"api/updateProduct";
-    updateProductnameURL = this.auth.basicURLcommon+"api/updateProductname";
+   apiUrltest = environment.apiUrl+"api/gets";
+    userGetUrl = environment.apiUrl+"api/getsUserEdit";
+    updateProductURL = environment.apiUrl+"api/updateProduct";
+    updateProductnameURL = environment.apiUrl+"api/updateProductname";
 
-    loginSession = this.auth.basicURLcommon+"api/loginSetSession"
-    backendLiveURL = this.auth.basicURLcommon+"api/get";
-    GetProducts = this.auth.basicURLcommon+"api/productGet";
-    backendUserdetailURL = this.auth.basicURLcommon+"api/userGetdetails";
-    apiaddCrmApis = this.auth.basicURLcommon+"api/apiaddCrmApis";
-    apiListCrmApis = this.auth.basicURLcommon+"api/apiListCrmApis";
-    apiauthenticate = this.auth.basicURLcommon+"api/authenticate";
+    loginSession = environment.apiUrl+"api/loginSetSession"
+    backendLiveURL = environment.apiUrl+"api/get";
+    GetProducts = environment.apiUrl+"api/productGet";
+    backendUserdetailURL = environment.apiUrl+"api/userGetdetails";
+    apiaddCrmApis = environment.apiUrl+"api/apiaddCrmApis";
+    apiListCrmApis = environment.apiUrl+"api/apiListCrmApis";
+    apiauthenticate = environment.apiUrl+"api/authenticate";
     showErrorMessage;
     loginauth;
   
  
-  constructor(private http: HttpClient,public auth:AuthService,private router: Router,
+  constructor(private http: HttpClient,private router: Router,
     private route: ActivatedRoute,) {
     
   }
@@ -56,8 +47,8 @@ export class DashboardService {
     return this.http.get(this.backendLiveURL);
   }
   public Ongetuserdata = () => {
-    this.auth.userProfile$.subscribe(
-      valuesub =>  this.auth0Subvalue = valuesub.sub);
+    // this.auth.userProfile$.subscribe(
+    //   valuesub =>  this.auth0Subvalue = valuesub.sub);
       let params = new HttpParams();
       params = params.append('auth0', this.auth0Subvalue);
       //params = params.append('param-2', this.auth0Subvalue);
@@ -82,8 +73,8 @@ export class DashboardService {
     );
   }
      Ongetdata():Observable<ProductsListsItem[]>{
-      this.auth.userProfile$.subscribe(
-        valuesub =>  this.auth0Subvalue = valuesub.sub);
+      // this.auth.userProfile$.subscribe(
+      //   valuesub =>  this.auth0Subvalue = valuesub.sub);
         let params = new HttpParams();
         params = params.append('auth0', this.auth0Subvalue);
         //params = params.append('param-2', this.auth0Subvalue);
@@ -101,19 +92,19 @@ export class DashboardService {
        );
 
     }
-    Ongetuserdatas():Observable<UsersAddModelList[]>{
-      this.auth.userProfile$.subscribe(
-        valuesub =>  this.auth0Subvalue = valuesub.sub);
-        let params = new HttpParams();
-        params = params.append('auth0', this.auth0Subvalue);
-        //params = params.append('param-2', this.auth0Subvalue);
-        let headers = new HttpHeaders();
-        headers  = headers.append('Content-Type', 'application/json');
-        headers  = headers.append('Access-Control-Allow-Origin', '*');
-      return this.http.get<UsersAddModelList[]>(this.backendUserdetailURL,{headers,params});
-    }
+    // Ongetuserdatas():Observable<UsersAddModelList[]>{
+    //   this.auth.userProfile$.subscribe(
+    //     valuesub =>  this.auth0Subvalue = valuesub.sub);
+    //     let params = new HttpParams();
+    //     params = params.append('auth0', this.auth0Subvalue);
+    //     //params = params.append('param-2', this.auth0Subvalue);
+    //     let headers = new HttpHeaders();
+    //     headers  = headers.append('Content-Type', 'application/json');
+    //     headers  = headers.append('Access-Control-Allow-Origin', '*');
+    //   return this.http.get<UsersAddModelList[]>(this.backendUserdetailURL,{headers,params});
+    // }
     getProduct(id: number): Observable<ProductsListsItem> {
-      const url = `${this.apiUrl}/${id}`;
+      const url = `${this.apiUrltest}/${id}`;
       return this.http.get<ProductsListsItem>(url).pipe(
         tap(_ => console.log(`fetched product id=${id}`)),
       catchError(this.handleError<ProductsListsItem>(`getProduct id=${id}`))

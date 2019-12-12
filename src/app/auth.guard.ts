@@ -1,33 +1,24 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, CanActivate } from '@angular/router';
-import { Observable } from 'rxjs';
-import { AuthService } from './auth.service';
-import { tap } from 'rxjs/operators';
-import { Router } from "@angular/router";
+import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
+import {AuthenticationService} from './services/authentication.service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
+    constructor(
+        private router: Router,
+        private authenticationService: AuthenticationService
+    ) { }
 
-  constructor(private auth: AuthService,private router: Router,) {}
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+        const currentUser = this.authenticationService.currentUserValue;
+        if (currentUser) {
+            // logged in so return true
+            return true;
+        }
 
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<boolean> | Promise<boolean|UrlTree> | boolean {
-    if (localStorage.getItem('userToken') != null)
-      return true;
-      this.router.navigate(['/login']);
-      return false;
-    // return this.auth.isAuthenticated$.pipe(
-    //   tap(loggedIn => {
-    //     if (!loggedIn) {
-    //       this.auth.login(state.url);
-    //     }
-    //   })
-    // );
-  }
-
+        // not logged in so redirect to login page with the return url
+        this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
+        return false;
+    }
 }

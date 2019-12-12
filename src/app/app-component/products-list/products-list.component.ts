@@ -3,9 +3,11 @@ import { MatTableDataSource, MatSort, MatPaginator} from '@angular/material';
 import { ProductsListsItem } from '../../model/productlist.model';
 import {DashboardService} from '../../services/dashboard.service';
 import { Location } from '@angular/common';
-import { AuthService } from '../../auth.service';
 import { Router,ActivatedRoute } from "@angular/router";
 import { CookieService } from 'ngx-cookie-service';
+import { environment } from '../../../environments/environment';
+
+
 
 
 @Component({
@@ -30,17 +32,13 @@ export class ProductsListComponent implements OnInit, AfterViewInit  {
   constructor(public productService: DashboardService,private router: Router,
     private location:Location,
     private cookieService: CookieService,
-    public auth: AuthService) { }
+    ) { }
 
   ngOnInit() {
 
     this.cookiesVal = this.cookieService.get('cookiesVal');
 
-    //   if (!this.cookiesVal) {
-    //     alert(this.auth.loggedIn);
-    //     this.location.replaceState('/');
-    //     this.router.navigate(['/']); 
-    // }
+    
     this.getAllProducts();
 
   }

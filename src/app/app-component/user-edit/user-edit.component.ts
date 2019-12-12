@@ -5,9 +5,11 @@ import { UsersAddModel } from '../user-add/addusers.model';
 import { Router,ActivatedRoute } from "@angular/router";
 import {FormBuilder, FormGroup, Validators ,FormsModule,NgForm} from '@angular/forms';
 import { UsersAddModelList } from '../../model/userlist.model';
-import { AuthService } from '../../auth.service';
 import { Location } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
+import { environment } from '../../../environments/environment';
+
+
 
 
 @Component({
@@ -19,9 +21,7 @@ export class UserEditComponent implements OnInit {
   user: UsersAddModel = new UsersAddModel();
   userForm:FormGroup;
 
- // backendLiveURL = "http://127.0.0.1:8080/api/shows";
-  backendLiveURL = this.auth.basicURLcommon+"api/shows";
-  //backendLiveURL = "https://lumen.lose25.com/api/shows";
+  backendLiveURL = environment.apiUrl+"api/shows";
   constructor(private http: HttpClient,
     private formBuilder:FormBuilder,
     private router: Router,
@@ -29,7 +29,7 @@ export class UserEditComponent implements OnInit {
     private cookieService: CookieService,
     private location:Location,
     private productService: DashboardService,
-    public auth: AuthService) { }
+    ) { }
   selected: string;
   id: number;
   filter: any;
@@ -48,17 +48,10 @@ export class UserEditComponent implements OnInit {
       'Content-Type': 'application/json', 
       'Access-Control-Allow-Origin': '*' 
     });
-      //alert(this.user.product_status);
-      //console.log(this.user);
-      //   this.http.post(this.backendLiveURL,this.user,{headers})
-      //  .subscribe(
-      //    data => console.log(data),
-      //    error => console.log(error)
-      //  );
-      this.auth.userProfile$.subscribe(
-        valuesub =>  this.auth0Subvalue = valuesub.sub);
+     
+   
         this.formUserval = {users_name:this.user.users_name, user_desc:this.user.user_desc,
-          users_status:this.user.users_status,users_id:this.user.users_id,sub:this.auth0Subvalue};
+          users_status:this.user.users_status,users_id:this.user.users_id};
       this.productService.updateProduct(this.id, this.formUserval)
     .subscribe(res => {
         this.isLoadingResults = false;
@@ -68,7 +61,6 @@ export class UserEditComponent implements OnInit {
         this.isLoadingResults = false;
       }
     );
-       //this.router.navigate(['/product']);
        
     }
     getUser(id) {
