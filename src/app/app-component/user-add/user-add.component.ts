@@ -5,9 +5,10 @@ import { Router } from "@angular/router";
 import { UsersAddModel } from './addusers.model';
 import {DashboardService} from '../../services/dashboard.service';
 import { Observable, of as observableOf, merge } from 'rxjs';
-import { AuthService } from '../../auth.service';
 import { Location } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
+import { environment } from '../../../environments/environment';
+
 
 
 
@@ -25,11 +26,11 @@ export class UserAddComponent implements OnInit {
   cookiesVal;
  // backendLiveURL = "https://lumen.lose25.com/api/addProduct";
  // backendLiveURL = 'http://127.0.0.1:8080/api/addProduct';
-  backendLiveURL = this.auth.basicURLcommon+"api/addProduct";
+
+  backendLiveURL = environment.apiUrl+"api/addProduct";
   constructor(private http: HttpClient,
     private formBuilder:FormBuilder,
     private router: Router,
-    public auth: AuthService,
     private cookieService: CookieService,
     private location:Location,
     private productService: DashboardService) { }
@@ -41,8 +42,7 @@ export class UserAddComponent implements OnInit {
     });
       //alert(this.user.product_status);
       //console.log(this.user);
-      this.auth.userProfile$.subscribe(
-        valuesub =>  this.auth0Subvalue = valuesub.sub);
+      
         this.formUserval = {users_name:this.user.users_name, user_desc:this.user.user_desc,
           users_status:this.user.users_status,users_id:this.user.users_id,sub:this.auth0Subvalue};
 

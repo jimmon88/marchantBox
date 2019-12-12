@@ -6,6 +6,9 @@ import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { first } from 'rxjs/operators';
 import {DashboardService} from '../../services/dashboard.service';
 import { createFalse } from 'typescript/lib/tsserverlibrary';
+import {AuthenticationService} from '../../services/authentication.service';
+
+
 
 
 
@@ -22,20 +25,24 @@ export class LoginCrmComponent implements OnInit {
   submitted = false;
   showErrorMessage;
   LoginViewpage;
-
+  error = '';
+  
   constructor(
     private http: HttpClient,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private productService: DashboardService,
+    private authenticationService: AuthenticationService
 
-  ) { }
+  ) {
+      // redirect to home if already logged in
+      if (this.authenticationService.currentUserValue) { 
+        this.router.navigate(['dashboards']);
+    }
+  }
 
-  // //redirect to home if already logged in
-  //       if (this.authenticationService.currentUserValue) { 
-  //           this.router.navigate(['/']);
-  //       }
+      
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -44,7 +51,9 @@ export class LoginCrmComponent implements OnInit {
   });
   // get return url from route parameters or default to '/'
   this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || 'dashboards';
-  }
+}
+// convenience getter for easy access to form fields
+get f() { return this.loginForm.controls; }
 
   onLoginSubmit() {
     this.submitted = true;
@@ -54,24 +63,17 @@ export class LoginCrmComponent implements OnInit {
         return;
     }
     this.showErrorMessage = false;
-    this.productService.login(this.login)
-        .pipe(first())
-        .subscribe(
-            data => {
-                
-                localStorage.setItem('currentUser', JSON.stringify(data));
-                localStorage.setItem('userToken', data.token);
-                if(localStorage.getItem('userToken')){
+    //alert(this.f.username.value);
+    this.authenticationService.login(this.f.username.value, this.f.password.value)
+            .pipe(first())
+            .subscribe(
+                data => {
                     this.router.navigate([this.returnUrl]);
-                }else{
-                    this.showErrorMessage =true;
-                }
-                //alert(localStorage.getItem('userToken'));
-                this.router.navigate([this.returnUrl]);
-            },
-            error => {
-                //this.alertService.error(error);
-            });
+                },
+                error => {
+                    this.error = error;
+                });
+               
 }
 
 }

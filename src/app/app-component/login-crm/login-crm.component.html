@@ -5,7 +5,9 @@
             <mat-card >
                 <div align = "left">
                     <small>Authentication Required</small>
-                </div>                
+                </div>  
+                <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
+              
                 <div>
                     <form  class="form" [formGroup]="loginForm" (ngSubmit)="loginForm.valid && onLoginSubmit()"  novalidate>
                         <div class="example-container" align="center">
@@ -36,5 +38,3 @@
     </mat-grid-list>
     
 </div>
-
-     

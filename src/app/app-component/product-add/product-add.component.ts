@@ -3,9 +3,9 @@ import {FormBuilder, FormGroup, Validators ,FormsModule,NgForm} from '@angular/f
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { ProductAddModel } from './addproduct.model';
 import { Router } from "@angular/router";
-import { AuthService } from '../../auth.service';
 import { Location } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
+import { environment } from '../../../environments/environment';
 
 
 
@@ -18,9 +18,8 @@ export class ProductAddComponent implements OnInit {
 
   user: ProductAddModel = new ProductAddModel();
   productForm:FormGroup;
+  backendLiveURL = environment.apiUrl+"api/show";  
 
-  backendLiveURL = this.auth.basicURLcommon+"api/show";
-  
  
   constructor(
     private http: HttpClient,
@@ -28,7 +27,7 @@ export class ProductAddComponent implements OnInit {
     private formBuilder:FormBuilder,
     private router: Router,
     private cookieService: CookieService,
-    public auth: AuthService) { }
+    ) { }
   filter: any;
   auth0Subvalue;
   cookiesVal;
@@ -42,15 +41,9 @@ export class ProductAddComponent implements OnInit {
     'Access-Control-Allow-Origin': '*' 
   });
 
-  this.auth.userProfile$.subscribe(
-    valuesub =>  this.auth0Subvalue = valuesub.sub);
     this.formProductval = {product_name:this.user.product_name, product_desc:this.user.product_desc,
-    product_status:this.user.product_status,product_id:this.user.product_id,sub:this.auth0Subvalue};
-  //alert(this.auth.userProfile$.sub);
-    //alert(this.user.email);
-    //alert(this.auth0Subvalue);
-    //console.log(this.user);
-    
+    product_status:this.user.product_status,product_id:this.user.product_id};
+
       this.http.post(this.backendLiveURL,this.formProductval,{headers})
      .subscribe(
        data => console.log(data),

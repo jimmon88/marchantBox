@@ -3,11 +3,10 @@ import {FormBuilder, FormGroup, Validators ,FormsModule,NgForm} from '@angular/f
 import { CrmapiModelLists } from './addapi.model';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Router } from "@angular/router";
-import { AuthService } from '../../../auth.service';
 import { Location } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
 import {DashboardService} from '../../../services/dashboard.service';
-
+import { environment } from '../../../../environments/environment';
 
 
 
@@ -34,7 +33,7 @@ export class CrmapiAddComponent implements OnInit {
   
   crm: CrmapiModelLists = new CrmapiModelLists();
   crmForm:FormGroup;
-  backendLiveURL = this.auth.basicURLcommon+"api/showtest";
+  backendLiveURL = environment.apiUrl+"api/showtest";
   constructor(
     private http: HttpClient,
     private location:Location,
@@ -42,7 +41,6 @@ export class CrmapiAddComponent implements OnInit {
     private router: Router,
     private productService: DashboardService,
     private cookieService: CookieService,
-    public auth: AuthService
   ) { }
 
   auth0Subvalue;
@@ -70,28 +68,17 @@ export class CrmapiAddComponent implements OnInit {
       ]]
     });
   }
-  // export class CrmapiModelLists {
-  //   crm_label:String;
-  //   crm_apiUsername:String;
-  //   crm_apiPassword:String;
-  //   crm_apiType:String;
-  // }
-
+ 
   oncrmFormSubmit(){
     const headers = new HttpHeaders({
       'Content-Type': 'application/json', 
       'Access-Control-Allow-Origin': '*' 
     });
   
-    this.auth.userProfile$.subscribe(
-      valuesub =>  this.auth0Subvalue = valuesub.sub);
+    
       this.formProductval = {crm_label:this.crm.crm_label,crm_apiEndpoint:this.crm.crm_apiEndpoint, crm_apiUsername:this.crm.crm_apiUsername,
-        crm_apiPassword:this.crm.crm_apiPassword,crm_apiType:this.crm.crm_apiType,sub:this.auth0Subvalue};
-    //alert(this.auth.userProfile$.sub);
-      //alert(this.user.email);
-      //alert(this.auth0Subvalue);
-      //console.log(this.user);
-
+        crm_apiPassword:this.crm.crm_apiPassword,crm_apiType:this.crm.crm_apiType};
+    
       this.productService.addCrmApis(this.formProductval)
       .subscribe(res => {
           let id = res['_id'];
@@ -100,11 +87,7 @@ export class CrmapiAddComponent implements OnInit {
           console.log(err);
         });
       
-      //   this.http.post(this.backendLiveURL,this.formProductval,{headers})
-      //  .subscribe(
-      //    data => console.log(data),
-      //    error => console.log(error)
-      //  );
+      
        
     }
 

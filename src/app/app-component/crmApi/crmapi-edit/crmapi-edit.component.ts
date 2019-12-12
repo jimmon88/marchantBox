@@ -5,9 +5,10 @@ import { CrmapiModelLists } from '../crmapi-add/addapi.model';
 import { Router,ActivatedRoute } from "@angular/router";
 import {FormBuilder, FormGroup, Validators ,FormsModule,NgForm} from '@angular/forms';
 import { CrmapiListsItem } from '../../../model/apilist.model';
-import { AuthService } from '../../../auth.service';
 import { Location } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
+import { environment } from '../../../../environments/environment';
+
 
 @Component({
   selector: 'app-crmapi-edit',
@@ -23,7 +24,7 @@ export class CrmapiEditComponent implements OnInit {
   formProductval;
   id;
 
-  backendLiveURL = this.auth.basicURLcommon+"api/shows";
+  backendLiveURL = environment.apiUrl+"api/shows";
 
 
   constructor( private http: HttpClient,
@@ -33,7 +34,7 @@ export class CrmapiEditComponent implements OnInit {
     private route: ActivatedRoute,
     private productService: DashboardService,
     private cookieService: CookieService,
-    public auth: AuthService) { }
+    ) { }
 
  
     ngOnInit() {
@@ -64,10 +65,9 @@ export class CrmapiEditComponent implements OnInit {
       'Access-Control-Allow-Origin': '*' 
     });
   
-    this.auth.userProfile$.subscribe(
-      valuesub =>  this.auth0Subvalue = valuesub.sub);
+   
       this.formProductval = {crm_label:this.crm.crm_label,crm_apiEndpoint:this.crm.crm_apiEndpoint, crm_apiUsername:this.crm.crm_apiUsername,
-        crm_apiPassword:this.crm.crm_apiPassword,crm_apiType:this.crm.crm_apiType,sub:this.auth0Subvalue};
+        crm_apiPassword:this.crm.crm_apiPassword,crm_apiType:this.crm.crm_apiType};
           
         this.http.post(this.backendLiveURL,this.formProductval,{headers})
        .subscribe(

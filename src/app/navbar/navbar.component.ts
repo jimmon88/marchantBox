@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth.service';
 import { CookieService } from 'ngx-cookie-service';
 
 
@@ -13,18 +12,9 @@ export class NavbarComponent implements OnInit {
   cookiesVal;
   showDetail;
   hideDetail;
-  constructor(public auth: AuthService,public cookieService: CookieService) { }
+  constructor(public cookieService: CookieService) { }
 
   ngOnInit() {
-
-    this.cookiesVal = this.cookieService.get('cookiesVal');
-    if(this.cookiesVal){
-      //alert('ss');
-      this.showDetail = true    
-    }else{
-      //alert('sss');
-      this.hideDetail = true
-    }
 
   }
 
