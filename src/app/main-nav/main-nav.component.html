@@ -1,15 +1,16 @@
-<mat-sidenav-container class="sidenav-container" fullscreen >
-    <mat-sidenav #drawer class="sidenav" fixedInViewport
-        [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-        [mode]="(isHandset$ | async) ? 'push' : 'push'"
-        [opened]="(isHandset$ | async) === true">
-      <mat-toolbar>Menu</mat-toolbar>
-      <mat-nav-list>
-          <a mat-list-item href="#" routerLink="/dashboards" routerLinkActive="active" (click)="drawer.toggle()">
-              <mat-icon mat-list-icon>assignment</mat-icon>
-              <h4 mat-line>Dashboard</h4>
+<mat-sidenav-container class="sidenav-container" fullscreen>
+    <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'push' : 'push'" [opened]="(isHandset$ | async) === true">
+        <mat-toolbar>Menu</mat-toolbar>
+        <mat-nav-list>
+            <a mat-list-item href="#" routerLink="/dashboards" routerLinkActive="active" (click)="drawer.toggle()">
+                <mat-icon mat-list-icon>assignment</mat-icon>
+                <h4 mat-line>Dashboard</h4>
             </a>
-          <a mat-list-item routerLink="/users" routerLinkActive="active"  (click)="drawer.toggle()">
+            <a mat-list-item routerLink="/api-list" routerLinkActive="active" (click)="drawer.toggle()">
+                <mat-icon mat-list-icon>timeline</mat-icon>
+                <h4 mat-line>CRM </h4>
+            </a>
+            <!-- <a mat-list-item routerLink="/users" routerLinkActive="active"  (click)="drawer.toggle()">
             <mat-icon mat-list-icon>person</mat-icon>
             <h4 mat-line >Users</h4>
           </a>
@@ -17,31 +18,23 @@
             <mat-icon mat-list-icon>domain</mat-icon>
             <h4 mat-line>Products </h4>
           </a>
-          <a mat-list-item routerLink="/api-list" routerLinkActive="active"  (click)="drawer.toggle()">
-            <mat-icon mat-list-icon>timeline</mat-icon>
-            <h4 mat-line>CRM </h4>
-          </a>
-          <a mat-list-item (click)="logout()">
+         
+          <a mat-list-item (click)="productService.logout()">
               <mat-icon mat-list-icon>power_settings_new</mat-icon>
               <h4 mat-line>Logout </h4>
-          </a>
+          </a> -->
 
-      </mat-nav-list>
+        </mat-nav-list>
     </mat-sidenav>
-    <mat-sidenav-content >
-      <mat-toolbar color="primary">
-        <button
-          type="button"
-          aria-label="Toggle sidenav"
-          mat-icon-button
-          (click)="drawer.toggle()"
-          *ngIf="!(isHandset$ | async)">
+    <mat-sidenav-content>
+        <mat-toolbar color="primary">
+            <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="!(isHandset$ | async)">
           <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
         </button>
-        <span>MerchantBox-Dashboard</span>
-      </mat-toolbar>
-      <!-- Add Content Here -->
-      <ng-content>         
-      </ng-content>      
+            <span>MerchantBox-Dashboard</span>
+        </mat-toolbar>
+        <!-- Add Content Here -->
+        <ng-content>
+        </ng-content>
     </mat-sidenav-content>
-  </mat-sidenav-container>
+</mat-sidenav-container>

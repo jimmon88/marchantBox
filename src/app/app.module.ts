@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AppRoutingModule} from './app-routing.module';
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { MainNavComponent } from './main-nav/main-nav.component';
@@ -13,8 +13,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import {MatDividerModule} from '@angular/material/divider';
-import {DashboardService} from './services/dashboard.service';
+import { MatDividerModule } from '@angular/material/divider';
+import { DashboardService } from './services/dashboard.service';
 import {
   MatAutocompleteModule,
   MatButtonToggleModule,
@@ -57,10 +57,10 @@ import { UserEditComponent } from './app-component/user-edit/user-edit.component
 import { ProductsListComponent } from './app-component/products-list/products-list.component';
 import { UsersListComponent } from './app-component/users-list/users-list.component';
 import { CookieService } from 'ngx-cookie-service';
-import { CrmapiAddComponent } from './app-component/crmApi/crmapi-add/crmapi-add.component';
 import { CrmapiListComponent } from './app-component/crmApi/crmapi-list/crmapi-list.component';
-import { CrmapiEditComponent } from './app-component/crmApi/crmapi-edit/crmapi-edit.component';
+//import { CrmapiEditComponent } from './app-component/crmApi/crmapi-edit/crmapi-edit.component';
 import { LoginCrmComponent } from './app-component/login-crm/login-crm.component';
+import { CrmapiAddComponent } from './app-component/crmApi/crmapi-add-modal/crmapi-add.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -73,12 +73,11 @@ import { LoginCrmComponent } from './app-component/login-crm/login-crm.component
     UserEditComponent,
     ProductsListComponent,
     UsersListComponent,
-    CrmapiAddComponent,
+    LoginCrmComponent,
     CrmapiListComponent,
-    CrmapiEditComponent,
-    LoginCrmComponent, 
-    
-    
+    CrmapiAddComponent
+
+
   ],
   imports: [
     BrowserModule,
@@ -125,7 +124,8 @@ import { LoginCrmComponent } from './app-component/login-crm/login-crm.component
     FlexLayoutModule,
     ReactiveFormsModule
   ],
-  providers: [DashboardService,CookieService],
+  providers: [DashboardService, CookieService],
+  entryComponents: [CrmapiAddComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
