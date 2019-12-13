@@ -50,7 +50,7 @@ import {
 } from '@angular/material';
 import { DashboardPageComponent } from './app-component/dashboard-page/dashboard-page.component';
 import { ProductAddComponent } from './app-component/product-add/product-add.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ProductEditComponent } from './app-component/product-edit/product-edit.component';
 import { UserAddComponent } from './app-component/user-add/user-add.component';
 import { UserEditComponent } from './app-component/user-edit/user-edit.component';
@@ -61,6 +61,7 @@ import { CrmapiListComponent } from './app-component/crmApi/crmapi-list/crmapi-l
 //import { CrmapiEditComponent } from './app-component/crmApi/crmapi-edit/crmapi-edit.component';
 import { LoginCrmComponent } from './app-component/login-crm/login-crm.component';
 import { CrmapiAddComponent } from './app-component/crmApi/crmapi-add-modal/crmapi-add.component';
+import { HttpRequestInterceptorService } from './core/http-request-interceptor.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -124,7 +125,7 @@ import { CrmapiAddComponent } from './app-component/crmApi/crmapi-add-modal/crma
     FlexLayoutModule,
     ReactiveFormsModule
   ],
-  providers: [DashboardService, CookieService],
+  providers: [DashboardService, CookieService, { provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptorService, multi: true }],
   entryComponents: [CrmapiAddComponent],
   bootstrap: [AppComponent]
 })
