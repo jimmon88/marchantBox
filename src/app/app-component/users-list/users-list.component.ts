@@ -3,7 +3,6 @@ import { UsersAddModelList } from '../../model/userlist.model';
 import { MatTableDataSource, MatSort, MatPaginator} from '@angular/material';
 import {DashboardService} from '../../services/dashboard.service';
 import { Location } from '@angular/common';
-import { AuthService } from '../../auth.service';
 import { Router,ActivatedRoute } from "@angular/router";
 import { CookieService } from 'ngx-cookie-service';
 
@@ -26,7 +25,7 @@ export class UsersListComponent implements OnInit {
   constructor(public productService: DashboardService,private router: Router,
     private cookieService: CookieService,
     private location:Location,
-    public auth: AuthService) { }
+    ) { }
 
   ngOnInit() {
     this.cookiesVal = this.cookieService.get('cookiesVal');

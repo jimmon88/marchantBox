@@ -2,8 +2,14 @@ import { Component } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import { AuthService } from '../auth.service';
 import {DashboardService} from '../services/dashboard.service';
+import {AuthenticationService} from '../services/authentication.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
+
+
+
+
 
 
 @Component({
@@ -20,6 +26,16 @@ export class MainNavComponent {
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver,public auth: AuthService,public productService: DashboardService,) {}
+  constructor(    private authenticationService: AuthenticationService,
+    private breakpointObserver: BreakpointObserver,
+    private route: ActivatedRoute,
+    private location:Location,
+    private router: Router,
+    private productService: DashboardService,) {}
 
+  logout() {
+    this.authenticationService.logout();
+    this.location.replaceState('/');
+    this.router.navigate(['/']);
+  }
 }

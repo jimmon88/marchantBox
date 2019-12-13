@@ -1,8 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CallbackComponent } from './callback/callback.component';
-import { ProfileComponent } from './profile/profile.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
@@ -67,8 +65,6 @@ import { CrmapiAddComponent } from './app-component/crmApi/crmapi-add-modal/crma
   declarations: [
     AppComponent,
     NavbarComponent,
-    CallbackComponent,
-    ProfileComponent,
     MainNavComponent,
     DashboardPageComponent,
     ProductAddComponent,

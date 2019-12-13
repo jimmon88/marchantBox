@@ -5,9 +5,10 @@ import { ProductAddModel } from '../product-add/addproduct.model';
 import { Router,ActivatedRoute } from "@angular/router";
 import {FormBuilder, FormGroup, Validators ,FormsModule,NgForm} from '@angular/forms';
 import { ProductsListsItem } from '../../model/productlist.model';
-import { AuthService } from '../../auth.service';
 import { Location } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
+import { environment } from '../../../environments/environment';
+
 
 
 
@@ -20,10 +21,7 @@ export class ProductEditComponent implements OnInit {
   user: ProductAddModel = new ProductAddModel();
   productForm:FormGroup;
 
-  //backendLiveURL = "http://127.0.0.1:8080/api/shows";
-  backendLiveURL = this.auth.basicURLcommon+"api/shows";
-  //backendLiveURL = "https://lumen.lose25.com/api/shows";
-  
+
   constructor(
     private http: HttpClient,
     private formBuilder:FormBuilder,
@@ -32,7 +30,7 @@ export class ProductEditComponent implements OnInit {
     private location:Location,
     private cookieService: CookieService,
     private productService: DashboardService,
-    public auth: AuthService) { }
+    ) { }
   selected: string;
   id: number;
   cookiesVal;
@@ -49,18 +47,9 @@ export class ProductEditComponent implements OnInit {
       'Content-Type': 'application/json', 
       'Access-Control-Allow-Origin': '*' 
     });
-      //alert(this.user.product_status);
-      //console.log(this.user);
-      //   this.http.post(this.backendLiveURL,this.user,{headers})
-      //  .subscribe(
-      //    data => console.log(data),
-      //    error => console.log(error)
-      //  );
-      //  this.router.navigate(['/product']);
-      this.auth.userProfile$.subscribe(
-        valuesub =>  this.auth0Subvalue = valuesub.sub);
+      
         this.formProductval = {product_name:this.user.product_name, product_desc:this.user.product_desc,
-        product_status:this.user.product_status,product_id:this.user.product_id,sub:this.auth0Subvalue};
+        product_status:this.user.product_status,product_id:this.user.product_id};
       this.productService.updateProductname(this.id, this.formProductval)
     .subscribe(res => {
         this.isLoadingResults = false;

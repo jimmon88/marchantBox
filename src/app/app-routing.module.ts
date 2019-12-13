@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { CallbackComponent } from './callback/callback.component';
-import { ProfileComponent } from './profile/profile.component';
 import { AuthGuard } from './auth.guard';
 import { DashboardPageComponent } from './app-component/dashboard-page/dashboard-page.component';
 import { ProductAddComponent } from './app-component/product-add/product-add.component';
@@ -15,19 +13,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { LoginCrmComponent } from './app-component/login-crm/login-crm.component';
 
 
-
-
-
-// ProductsListsComponent
 const routes: Routes = [
-  {
-    path: 'callback',
-    component: CallbackComponent,
-  },{
-    path: 'profile',
-    component: ProfileComponent,
-    canActivate: [AuthGuard]
-  },{
+ {
     path: 'products',
     component: ProductsListComponent,
   },{
@@ -42,8 +29,7 @@ const routes: Routes = [
   {
     path: 'product-edit/:id',
     component: ProductEditComponent,
-  },
-  
+  },  
   {
     path: 'user-add',
     component: UserAddComponent,

@@ -1,17 +1,33 @@
 <!-- <div>
         <router-outlet></router-outlet>
  </div> -->
- <div class="lessons-list" *ngIf="LoginViewpage else loading">
+ <div class="lessons-list" *ngIf="currentUser else loading">
     <div>
             <app-main-nav>
-                <router-outlet></router-outlet>
+                    <router-outlet></router-outlet>
             </app-main-nav>
+
+            
     </div>
         
 </div>
 
 <ng-template #loading>
-    <div>
         <router-outlet></router-outlet>
-    </div> 
+
 </ng-template>
+
+<!-- <div class="lessons-list" *ngIf="currentUser">
+        <div>
+                <app-main-nav>
+                    <router-outlet></router-outlet>
+                </app-main-nav>
+        </div>
+            
+    </div>
+    <div class="lessons-list" *ngIf="!currentUser">
+            <div>
+                <router-outlet></router-outlet>
+            </div>
+                
+    </div> -->
