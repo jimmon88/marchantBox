@@ -1,7 +1,6 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { DashboardService } from '../../../services/dashboard.service';
 import { Location } from '@angular/common';
-import { AuthService } from '../../../auth.service';
 import { CrmapiListsItem } from '../../../model/apilist.model';
 import { Router, ActivatedRoute } from "@angular/router";
 import { CookieService } from 'ngx-cookie-service';
@@ -27,7 +26,6 @@ export class CrmapiListComponent implements OnInit {
   constructor(public productService: DashboardService, private router: Router,
     private location: Location,
     private cookieService: CookieService,
-    public auth: AuthService,
     public dialog: MatDialog
   ) { }
 
