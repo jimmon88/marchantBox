@@ -11,15 +11,20 @@ import { Config } from '../core/config';
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
   private currentUserSubject: BehaviorSubject<User>;
-  public currentUser: Observable<User>;
+  //public currentUser: Observable<User>;
 
   constructor(private http: HttpClient) {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem(Config.TOKEN_NAME)));
-    this.currentUser = this.currentUserSubject.asObservable();
+    // this.currentUser = this.currentUserSubject.asObservable();
   }
+
 
   public get currentUserValue(): User {
     return this.currentUserSubject.value;
+  }
+
+  public getCurrentUser() {
+    return this.currentUserSubject.asObservable();
   }
 
   login(username, password) {
@@ -37,6 +42,7 @@ export class AuthenticationService {
     // remove user from local storage to log user out
     localStorage.removeItem(Config.TOKEN_NAME);
     this.currentUserSubject.next(null);
+
   }
 
   /**
