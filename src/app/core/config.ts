@@ -9,5 +9,6 @@ export class Config {
     { value: 'apis-4', viewValue: 'EMANAGE' },
   ];
 
+  static readonly TOKEN_NAME = 'access_token';
 
 }
