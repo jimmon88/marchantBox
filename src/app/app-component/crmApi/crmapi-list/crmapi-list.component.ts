@@ -5,6 +5,8 @@ import { CrmapiListsItem } from '../../../model/apilist.model';
 import { Router,ActivatedRoute } from "@angular/router";
 import { CookieService } from 'ngx-cookie-service';
 import { MatTableDataSource, MatSort, MatPaginator} from '@angular/material';
+import {AuthenticationService} from '../../../services/authentication.service';
+
 
 @Component({
   selector: 'app-crmapi-list',
@@ -24,8 +26,15 @@ export class CrmapiListComponent implements OnInit {
 
   constructor(public productService: DashboardService,private router: Router,
     private location:Location,
+    private authenticationService: AuthenticationService,
     private cookieService: CookieService,
-  ) { }
+  ) { 
+        // redirect to home if not logged in
+        if (!this.authenticationService.currentUserValue) { 
+          this.location.replaceState('/');
+          this.router.navigate(['login']);
+        }
+  }
 
     ngOnInit() {      
       this.getAllCRMapis();  

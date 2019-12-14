@@ -7,6 +7,7 @@ import { Location } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
 import {DashboardService} from '../../../services/dashboard.service';
 import { environment } from '../../../../environments/environment';
+import {AuthenticationService} from '../../../services/authentication.service';
 
 
 
@@ -38,10 +39,17 @@ export class CrmapiAddComponent implements OnInit {
     private http: HttpClient,
     private location:Location,
     private formBuilder:FormBuilder,
+    private authenticationService: AuthenticationService,
     private router: Router,
     private productService: DashboardService,
     private cookieService: CookieService,
-  ) { }
+  ) {
+      // redirect to home if not logged in
+      if (!this.authenticationService.currentUserValue) { 
+        this.location.replaceState('/');
+        this.router.navigate(['login']);
+      }
+   }
 
   auth0Subvalue;
   cookiesVal;

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,Input } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
@@ -19,6 +19,8 @@ import { Location } from '@angular/common';
 })
 export class MainNavComponent {
 
+  cookiesVal;
+  childMessage;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -31,11 +33,17 @@ export class MainNavComponent {
     private route: ActivatedRoute,
     private location:Location,
     private router: Router,
-    private productService: DashboardService,) {}
+    private productService: DashboardService,) {
+    this.cookiesVal = localStorage.getItem('toolbarVal');
+    }
 
   logout() {
     this.authenticationService.logout();
     this.location.replaceState('/');
     this.router.navigate(['/']);
+  }
+
+  ngOnInit() {
+   
   }
 }

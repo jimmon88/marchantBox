@@ -8,6 +8,8 @@ import { CrmapiListsItem } from '../../../model/apilist.model';
 import { Location } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
 import { environment } from '../../../../environments/environment';
+import {AuthenticationService} from '../../../services/authentication.service';
+
 
 
 @Component({
@@ -31,10 +33,17 @@ export class CrmapiEditComponent implements OnInit {
     private location:Location,
     private formBuilder:FormBuilder,
     private router: Router,
+    private authenticationService: AuthenticationService,
     private route: ActivatedRoute,
     private productService: DashboardService,
     private cookieService: CookieService,
-    ) { }
+    ) {
+        // redirect to home if not logged in
+      if (!this.authenticationService.currentUserValue) { 
+        this.location.replaceState('/');
+        this.router.navigate(['login']);
+      }
+     }
 
  
     ngOnInit() {

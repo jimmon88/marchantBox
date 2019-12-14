@@ -1,14 +1,22 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map,tap } from 'rxjs/operators';
+
 
 import { environment } from '../../environments/environment';
 import { User } from './../model/user';
 
+export class MenuItem {
+    path: string;
+    title: string;
+    icon: string;
+}
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
+    toolbartitle: MenuItem[];
+    toolbarVal;
     private currentUserSubject: BehaviorSubject<User>;
     public currentUser: Observable<User>;
 
@@ -20,6 +28,12 @@ export class AuthenticationService {
     public get currentUserValue(): User {
         return this.currentUserSubject.value;
     }
+    
+    storeTitleval(toolbarVal) {
+        localStorage.setItem('toolbarVal',(toolbarVal.title));
+        return toolbarVal;     
+    }
+    
 
     login(username, password) {
         return this.http.post<any>(`${environment.apiUrl}api/authenticate`, { username, password })
