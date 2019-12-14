@@ -8,6 +8,8 @@ import { UsersAddModelList } from '../../model/userlist.model';
 import { Location } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
 import { environment } from '../../../environments/environment';
+import {AuthenticationService} from '../../services/authentication.service';
+
 
 
 
@@ -27,9 +29,16 @@ export class UserEditComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private cookieService: CookieService,
+    private authenticationService: AuthenticationService,
     private location:Location,
     private productService: DashboardService,
-    ) { }
+    ) {
+        // redirect to home if not logged in
+      if (!this.authenticationService.currentUserValue) {
+        this.location.replaceState('/');
+        this.router.navigate(['login']);
+    }
+     }
   selected: string;
   id: number;
   filter: any;

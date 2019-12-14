@@ -8,6 +8,7 @@ import { Observable, of as observableOf, merge } from 'rxjs';
 import { Location } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
 import { environment } from '../../../environments/environment';
+import {AuthenticationService} from '../../services/authentication.service';
 
 
 
@@ -31,9 +32,16 @@ export class UserAddComponent implements OnInit {
   constructor(private http: HttpClient,
     private formBuilder:FormBuilder,
     private router: Router,
+    private authenticationService: AuthenticationService,
     private cookieService: CookieService,
     private location:Location,
-    private productService: DashboardService) { }
+    private productService: DashboardService) { 
+      // redirect to home if not logged in
+      if (!this.authenticationService.currentUserValue) {
+        this.location.replaceState('/');
+        this.router.navigate(['login']);
+    }
+    }
 
   onuserFormSubmit(){
     const headers = new HttpHeaders({
@@ -56,12 +64,7 @@ export class UserAddComponent implements OnInit {
     }
     
     ngOnInit() {
-      this.cookiesVal = this.cookieService.get('cookiesVal');
-
-      if (!this.cookiesVal) {
-        this.location.replaceState('/');
-        this.router.navigate(['/']); 
-      }
+      
      
       this.productService.sendGetRequest().subscribe((data: any[])=>{
         //console.log(data);
