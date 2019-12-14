@@ -1,82 +1,80 @@
-<div fxLayout="row" fxLayoutAlign="center" >
-    
-        <mat-card fxFlex="90">
-                <div align="right">
-                        <a _ngcontent-jle-c224="" routerLink="/api-add" mat-fab="" style="background:#2196f3" class="mat-fab mat-button-base mat-primary">
-                          <i class="material-icons ng-scope"></i>
-                          <div matripple="" class="mat-button-ripple mat-ripple mat-button-ripple-round">
-                          </div><div class="mat-button-focus-overlay"></div>
-                        </a>
+<div fxLayout="row" fxLayoutAlign="center">
+
+    <mat-card class="matcard" fxFlex="90">
+        <div align="right">
+            <a _ngcontent-jle-c224="" (click)="openDialog()" mat-fab="" style="background:#2196f3" class="mat-fab mat-button-base mat-primary">
+                <i class="material-icons ng-scope"></i>
+                <div matripple="" class="mat-button-ripple mat-ripple mat-button-ripple-round">
                 </div>
-          <div fxLayout="row">
-              <div fxFlex="5" class="action-blurb" fxFlexOffset="2" ></div>
-              <div fxFlex="80" class="action-blurb" fxFlexOffset="5">
-                    
-                  <div align="right">
+                <div class="mat-button-focus-overlay"></div>
+            </a>
+        </div>
+        <div fxLayout="row">
+            <div fxFlex="5" class="action-blurb" fxFlexOffset="2"></div>
+            <div fxFlex="80" class="action-blurb" fxFlexOffset="5">
+
+                <div align="right">
                     <mat-card-header>
                         <mat-card-title>API-List</mat-card-title>
                     </mat-card-header>
-                  </div>
-                  
-              <div class="mat-elevation-z6">
-                <div>
-                    <mat-table [dataSource]="dataSource" matSort matSortStart="desc">
-                      <ng-container matColumnDef="crm_label">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header>Api Label</mat-header-cell>
-                        <mat-cell *matCellDef="let crm"> {{crm.crm_label}} </mat-cell>
-                      </ng-container>
-                      <ng-container matColumnDef="crm_apiType">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header> Api Type</mat-header-cell>
-                        <mat-cell *matCellDef="let crm"> {{crm.crm_apiType}} </mat-cell>
-                      </ng-container>
-                      <ng-container matColumnDef="crm_apiUsername">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header> Api Username </mat-header-cell>
-                        <mat-cell *matCellDef="let crm"> {{crm.crm_apiUsername}} </mat-cell>
-                      </ng-container>
-                      <ng-container matColumnDef="crm_apiEndpoint">
-                          <mat-header-cell *matHeaderCellDef mat-sort-header> Api Endpoint </mat-header-cell>
-                          <mat-cell *matCellDef="let crm"> {{crm.crm_apiEndpoint}} </mat-cell>
-                     </ng-container>
-                     <ng-container matColumnDef="crm_apiPassword">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header> Api Password </mat-header-cell>
-                        <mat-cell *matCellDef="let crm"> {{crm.crm_apiPassword}} </mat-cell>
-                   </ng-container>
-                      <ng-container matColumnDef="action">
-                        <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
-                        <mat-cell *matCellDef="let user">
-                            <button mat-icon-button [routerLink]="['/product-edit',user.id ]"><mat-icon>launch</mat-icon></button>
-                            <button mat-icon-button color="warn"><mat-icon>delete_outline</mat-icon></button>
-                        </mat-cell>
-                      </ng-container>
-    
-                    <ng-container matColumnDef="loading" >
-                        <mat-footer-cell *matFooterCellDef colspan="6"> 
-                                <mat-progress-spinner [mode]="'indeterminate'">
-                            </mat-progress-spinner> </mat-footer-cell>                    
-                    </ng-container>
-                    <ng-container matColumnDef="noData" >
-                        <mat-footer-cell *matFooterCellDef colspan="6">
-                            No data Avaliable ... 
-                        </mat-footer-cell>                    
-                    </ng-container>
-                        
-                      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-                        <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':dataSource!=null}"></mat-footer-row>
-                        <!-- <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':dataSource!=null && dataSource.data.length==0 }"></mat-footer-row> -->
-                    </mat-table>                
-                    <mat-paginator 
-                    [length]="dataSource?.data.length"
-                    [pageIndex]="0"
-                    [pageSize]="50"
-                    [pageSizeOptions]="[25, 50, 100, 250]">
-                    </mat-paginator>
-                  </div>
                 </div>
-                  
-                          
-          </div>
-              <div fxFlex="5" class="action-blurb" fxFlexOffset="2"></div>
-          </div>
-      </mat-card>
-      </div> 
+
+                <div class="mat-elevation-z6">
+                    <div>
+                        <mat-table [dataSource]="dataSource" matSort matSortStart="desc">
+                            <ng-container matColumnDef="crm_label">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header>Api Label</mat-header-cell>
+                                <mat-cell *matCellDef="let crm"> {{crm.crm_label}} </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="crm_apiType">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> Api Type</mat-header-cell>
+                                <mat-cell *matCellDef="let crm"> {{crm.crm_apiType}} </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="crm_apiUsername">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> Api Username </mat-header-cell>
+                                <mat-cell *matCellDef="let crm"> {{crm.crm_apiUsername}} </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="crm_apiEndpoint">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> Api Endpoint </mat-header-cell>
+                                <mat-cell *matCellDef="let crm"> {{crm.crm_apiEndpoint}} </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="crm_apiPassword">
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> Api Password </mat-header-cell>
+                                <mat-cell *matCellDef="let crm"> {{crm.crm_apiPassword}} </mat-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="action">
+                                <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+                                <mat-cell *matCellDef="let user">
+                                    <button mat-icon-button [routerLink]="['/product-edit',user.id ]"><mat-icon>launch</mat-icon></button>
+                                    <button mat-icon-button color="warn"><mat-icon>delete_outline</mat-icon></button>
+                                </mat-cell>
+                            </ng-container>
+
+                            <ng-container matColumnDef="loading">
+                                <mat-footer-cell *matFooterCellDef colspan="6">
+                                    <mat-progress-spinner [mode]="'indeterminate'">
+                                    </mat-progress-spinner>
+                                </mat-footer-cell>
+                            </ng-container>
+                            <ng-container matColumnDef="noData">
+                                <mat-footer-cell *matFooterCellDef colspan="6">
+                                    No data Avaliable ...
+                                </mat-footer-cell>
+                            </ng-container>
+
+                            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                            <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':dataSource!=null}"></mat-footer-row>
+                            <!-- <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':dataSource!=null && dataSource.data.length==0 }"></mat-footer-row> -->
+                        </mat-table>
+                        <mat-paginator [length]="dataSource?.data.length" [pageIndex]="0" [pageSize]="50" [pageSizeOptions]="[25, 50, 100, 250]">
+                        </mat-paginator>
+                    </div>
+                </div>
+
+
+            </div>
+            <div fxFlex="5" class="action-blurb" fxFlexOffset="2"></div>
+        </div>
+    </mat-card>
+</div>

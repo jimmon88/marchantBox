@@ -18,10 +18,10 @@ const httpOptions = {
 })
 
 export class DashboardService {
-  
+
   //private currentUserSubject: BehaviorSubject<any>;
   private loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  
+
    auth0Subvalue;
    apiUrltest = environment.apiUrl+"api/gets";
     userGetUrl = environment.apiUrl+"api/getsUserEdit";
@@ -37,11 +37,11 @@ export class DashboardService {
     apiauthenticate = environment.apiUrl+"api/authenticate";
     showErrorMessage;
     loginauth;
-  
- 
+
+
   constructor(private http: HttpClient,private router: Router,
     private route: ActivatedRoute,) {
-    
+
   }
   public getProductData = () => {
     return this.http.get(this.backendLiveURL);
@@ -57,7 +57,7 @@ export class DashboardService {
       headers  = headers.append('Access-Control-Allow-Origin', '*');
       return this.http.get(this.backendUserdetailURL,{headers,params});
   }
-  
+
   updateProduct (id, product): Observable<any> {
     const url = `${this.updateProductURL}/${id}`;
     return this.http.put(url, product, httpOptions).pipe(
@@ -113,7 +113,7 @@ export class DashboardService {
     // getUser(id: number) {
     //   return this.http.get<UsersAddModelList>(this.userGetUrl + '/' + id);
     // }
-    
+
     getUser(id: number): Observable<UsersAddModelList> {
       const url = `${this.userGetUrl}/${id}`;
       return this.http.get<UsersAddModelList>(url).pipe(
@@ -125,7 +125,7 @@ export class DashboardService {
       return this.http.get(this.GetProducts).pipe(catchError(this.handleError));
     }
     //Login Details
-   
+
     get isLoggedIn() {
       return this.loggedIn.asObservable();
     }
@@ -134,7 +134,7 @@ export class DashboardService {
       this.loggedIn.next(false);
       this.router.navigate(['/']);
     }
-    
+
     logins(login) {
       return this.http.post<any>( this.apiauthenticate,login )
           .pipe(map(user => {
@@ -152,8 +152,8 @@ export class DashboardService {
   }
   login(login) {
     return this.http.post<any>( this.apiauthenticate,login );
-        
-        
+
+
 }
 
   // login(login) {
@@ -162,12 +162,12 @@ export class DashboardService {
       //       // store user details and jwt token in local storage to keep user logged in between page refreshes
       //       localStorage.setItem('currentUser', JSON.stringify(user));
       //       this.currentUserSubject.next(user);
-            
-      //       return user;            
+
+      //       return user;
       //   },
-        
+
       // ))
-      
+
 //}
     //Api section getapiCrmData
 
@@ -183,18 +183,18 @@ export class DashboardService {
     public getapiCrmData = () => {
       return this.http.get(this.apiListCrmApis);
     }
-   
-    
+
+
     private handleError<T> (operation = 'operation', result?: T) {
       return (error: any): Observable<T> => {
-  
+
         // TODO: send the error to remote logging infrastructure
         console.error(error); // log to console instead
-  
+
         // Let the app keep running by returning an empty result.
         return of(result as T);
       };
     }
-  
-    
+
+
 }

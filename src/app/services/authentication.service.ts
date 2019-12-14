@@ -6,6 +6,7 @@ import { map,tap } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
 import { User } from './../model/user';
+import { Config } from '../core/config';
 
 export class MenuItem {
     path: string;
