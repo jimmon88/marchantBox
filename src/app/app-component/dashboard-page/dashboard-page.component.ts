@@ -3,6 +3,8 @@ import { Router} from "@angular/router";
 import { Location } from '@angular/common';
 import {DashboardService} from '../../services/dashboard.service';
 import { CookieService } from 'ngx-cookie-service';
+import {AuthenticationService} from '../../services/authentication.service';
+
 
 
 @Component({
@@ -19,7 +21,16 @@ export class DashboardPageComponent implements OnInit {
     private productService: DashboardService,
     private router: Router,
     private cookieService: CookieService,
-  ) { }
+    private authenticationService: AuthenticationService
+
+  ) {
+      // redirect to home if not logged in
+      if (!this.authenticationService.currentUserValue) {
+        this.location.replaceState('/'); 
+        this.router.navigate(['login']);
+      }
+
+   }
   //*ngIf="!auth.loggedIn
   
   ngOnInit() {

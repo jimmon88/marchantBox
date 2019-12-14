@@ -42,6 +42,12 @@
                                 <mat-header-cell *matHeaderCellDef mat-sort-header> Api Password </mat-header-cell>
                                 <mat-cell *matCellDef="let crm"> {{crm.crm_apiPassword}} </mat-cell>
                             </ng-container>
+                            <ng-container>
+                                <mat-header-cell *matHeaderCellDef mat-sort-header> Active </mat-header-cell>
+                                <mat-cell *matCellDef="let crm">
+                                    <mat-slide-toggle>Slide me!</mat-slide-toggle>
+                                </mat-cell>
+                            </ng-container>
                             <ng-container matColumnDef="action">
                                 <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
                                 <mat-cell *matCellDef="let user">

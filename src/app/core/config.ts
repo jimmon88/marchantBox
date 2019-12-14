@@ -1,3 +1,4 @@
+import { environment } from 'src/environments/environment';
 
 
 export class Config {
@@ -10,5 +11,17 @@ export class Config {
   ];
 
   static readonly TOKEN_NAME = 'access_token';
+  static readonly URLS = {
+    userGetUrl: environment.apiUrl + "api/getsUserEdit",
+    updateProductURL: environment.apiUrl + "api/updateProduct",
+    updateProductnameURL: environment.apiUrl + "api/updateProductname",
+    loginSession: environment.apiUrl + "api/loginSetSession",
+    backendLiveURL: environment.apiUrl + "api/get",
+    GetProducts: environment.apiUrl + "api/productGet",
+    backendUserdetailURL: environment.apiUrl + "api/userGetdetails",
+    crmapiAdd: environment.apiUrl + "api/apiaddCrmApis",
+    apiListCrmApis: environment.apiUrl + "api/apiListCrmApis",
+    apiauthenticate: environment.apiUrl + "api/authenticate"
+  }
 
 }

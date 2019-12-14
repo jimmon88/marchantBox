@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { CookieService } from 'ngx-cookie-service';
 import { MatTableDataSource, MatSort, MatPaginator, MatDialog } from '@angular/material';
 import { CrmapiAddComponent } from '../crmapi-add-modal/crmapi-add.component';
+import { CrmapiService } from 'src/app/services/crmapi.service';
 
 @Component({
   selector: 'app-crmapi-list',
@@ -23,7 +24,7 @@ export class CrmapiListComponent implements OnInit {
   @ViewChild(MatSort, { static: false }) sort: MatSort;
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
 
-  constructor(public productService: DashboardService, private router: Router,
+  constructor(private CrmapiService: CrmapiService, private router: Router,
     private location: Location,
     private cookieService: CookieService,
     public dialog: MatDialog
@@ -38,7 +39,7 @@ export class CrmapiListComponent implements OnInit {
 
 
   public getAllCRMapis = () => {
-    this.productService.getapiCrmData()
+    this.CrmapiService.getCrmapi()
       .subscribe(res => {
         this.dataSource.data = res as CrmapiListsItem[];
 

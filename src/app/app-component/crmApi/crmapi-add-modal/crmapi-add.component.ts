@@ -9,6 +9,8 @@ import { CrmapiModelLists } from 'src/app/model/addapi.model';
 import { Config } from 'src/app/core/config';
 import { Api } from 'src/app/model/api.model';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { CrmapiService } from 'src/app/services/crmapi.service';
+import { NotificationService } from 'src/app/core/notification.service';
 
 
 
@@ -33,9 +35,10 @@ export class CrmapiAddComponent implements OnInit {
     private location: Location,
     private formBuilder: FormBuilder,
     private router: Router,
-    private productService: DashboardService,
+    private CrmapiService: CrmapiService,
     private cookieService: CookieService,
     public dialogRef: MatDialogRef<CrmapiAddComponent>,
+    private notification:NotificationService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
      dialogRef.disableClose = true;
@@ -46,6 +49,7 @@ export class CrmapiAddComponent implements OnInit {
   formProductval;
 
   ngOnInit() {
+    this.notification.info("loaded");
     this.crmForm = this.formBuilder.group({
       'crm_label': [this.crm.crm_label, [
         Validators.required
@@ -66,12 +70,7 @@ export class CrmapiAddComponent implements OnInit {
       ]]
     });
   }
-  // export class CrmapiModelLists {
-  //   crm_label:String;
-  //   crm_apiUsername:String;
-  //   crm_apiPassword:String;
-  //   crm_apiType:String;
-  // }
+
 
   oncrmFormSubmit() {
     const headers = new HttpHeaders({
@@ -90,7 +89,7 @@ export class CrmapiAddComponent implements OnInit {
     //alert(this.auth0Subvalue);
     //console.log(this.user);
 
-    this.productService.addCrmApis(this.formProductval)
+    this.CrmapiService.addCrmApis(this.formProductval)
       .subscribe(res => {
         let id = res['_id'];
         this.router.navigate(['/products']);

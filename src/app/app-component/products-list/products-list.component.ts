@@ -6,6 +6,8 @@ import { Location } from '@angular/common';
 import { Router,ActivatedRoute } from "@angular/router";
 import { CookieService } from 'ngx-cookie-service';
 import { environment } from '../../../environments/environment';
+import {AuthenticationService} from '../../services/authentication.service';
+
 
 
 
@@ -19,9 +21,9 @@ export class ProductsListComponent implements OnInit, AfterViewInit  {
 
   color = 'primary';
   mode = 'determinate';
-  value = 50;
+  currentUserVal;
   isLoading = true;
-  cookiesVal;
+  toolbarVal;
   public displayedColumns = ['product_name', 'product_id', 'product_desc', 'action'];
   public dataSource = new MatTableDataSource<ProductsListsItem>();
  // @ViewChild(MatSort) sort: MatSort;
@@ -29,19 +31,31 @@ export class ProductsListComponent implements OnInit, AfterViewInit  {
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
 
 
-  constructor(public productService: DashboardService,private router: Router,
+  constructor(
+    public productService: DashboardService,
+    private router: Router,
     private location:Location,
     private cookieService: CookieService,
-    ) { }
+    private authenticationService: AuthenticationService
 
-  ngOnInit() {
-
-    this.cookiesVal = this.cookieService.get('cookiesVal');
-
+    ) { 
+      // redirect to home if not logged in
+      if (!this.authenticationService.currentUserValue) {
+        this.location.replaceState('/'); 
+        this.router.navigate(['login']);
+    }
+    }
     
-    this.getAllProducts();
 
+  ngOnInit() { 
+
+    this.toolbarVal = {icon:'', title:'Products-List',path:''};
+    this.authenticationService.storeTitleval(this.toolbarVal);
+
+
+    this.getAllProducts();
   }
+
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;

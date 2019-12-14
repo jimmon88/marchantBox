@@ -5,6 +5,7 @@ import {DashboardService} from '../../services/dashboard.service';
 import { Location } from '@angular/common';
 import { Router,ActivatedRoute } from "@angular/router";
 import { CookieService } from 'ngx-cookie-service';
+import {AuthenticationService} from '../../services/authentication.service';
 
 
 @Component({
@@ -22,18 +23,23 @@ export class UsersListComponent implements OnInit {
  // @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
-  constructor(public productService: DashboardService,private router: Router,
+  constructor(public productService: DashboardService,
+    private authenticationService: AuthenticationService,
+    private router: Router,
     private cookieService: CookieService,
     private location:Location,
-    ) { }
+    ) { 
+        // redirect to home if not logged in
+      if (!this.authenticationService.currentUserValue) {
+        this.location.replaceState('/');
+        this.router.navigate(['login']);
+     }
+    }
 
   ngOnInit() {
     this.cookiesVal = this.cookieService.get('cookiesVal');
 
-      if (!this.cookiesVal) {
-        this.location.replaceState('/');
-        this.router.navigate(['/']); 
-      }
+      
     this.getAllUsers();
   }
   ngAfterViewInit(): void {

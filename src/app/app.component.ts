@@ -15,19 +15,18 @@ import { User } from './model/user';
   styleUrls: ['./app.component.sass']
 })
 export class AppComponent implements OnInit {
-  sessionData;
+  toolbarVal;
+  toolbar;
   LoginViewpage;
   currentUser: User;
 
   constructor(private authenticationService: AuthenticationService, private router: Router, private productService: DashboardService,
   ) {
-    this.authenticationService.getCurrentUser().subscribe(x => {
-      this.currentUser = x;
-      if (x == null)
-        this.router.navigate(['/login']);
-    });
+    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+    //this.toolbar = (localStorage.getItem('toolbarVal'));
   }
 
+  parentMessage = "message from parent"
   ngOnInit() {
 
   }

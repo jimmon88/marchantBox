@@ -8,6 +8,8 @@ import { ProductsListsItem } from '../../model/productlist.model';
 import { Location } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
 import { environment } from '../../../environments/environment';
+import {AuthenticationService} from '../../services/authentication.service';
+
 
 
 
@@ -30,7 +32,15 @@ export class ProductEditComponent implements OnInit {
     private location:Location,
     private cookieService: CookieService,
     private productService: DashboardService,
-    ) { }
+    private authenticationService: AuthenticationService
+
+    ) {
+      // redirect to home if not logged in
+      if (!this.authenticationService.currentUserValue) {
+        this.location.replaceState('/');
+        this.router.navigate(['login']);
+      }
+     }
   selected: string;
   id: number;
   cookiesVal;

@@ -6,6 +6,8 @@ import { Router } from "@angular/router";
 import { Location } from '@angular/common';
 import { CookieService } from 'ngx-cookie-service';
 import { environment } from '../../../environments/environment';
+import {AuthenticationService} from '../../services/authentication.service';
+
 
 
 
@@ -27,10 +29,19 @@ export class ProductAddComponent implements OnInit {
     private formBuilder:FormBuilder,
     private router: Router,
     private cookieService: CookieService,
-    ) { }
+    private authenticationService: AuthenticationService
+
+    ) { 
+        // redirect to home if not logged in
+      if (!this.authenticationService.currentUserValue) {
+        this.location.replaceState('/');
+        this.router.navigate(['login']);
+      }
+
+    }
   filter: any;
   auth0Subvalue;
-  cookiesVal;
+  toolbarVal;
   formProductval;
 
   
@@ -54,14 +65,9 @@ export class ProductAddComponent implements OnInit {
   }
 ngOnInit() {
 
-  this.cookiesVal = this.cookieService.get('cookiesVal');
-
-      if (!this.cookiesVal) {
-        //alert(this.auth.loggedIn);
-        this.location.replaceState('/');
-        this.router.navigate(['/']); 
-    }
-
+  this.toolbarVal = {icon:'', title:'Products >> Add',path:''};
+    this.authenticationService.storeTitleval(this.toolbarVal);
+ 
     //alert(this.cookiesVal);
   this.productForm = this.formBuilder.group({
     'product_name':[this.user.product_name,[
