@@ -45,12 +45,15 @@ export class HttpRequestInterceptorService implements HttpInterceptor {
       });
     }
 
-      if (!req.url.includes("api/authenticate") && !req.headers.has('auth0')) {
-      headerChangeReq = req.clone({
-        setHeaders: {
-          auth0: this.authService.getToken()
-        }
-      });
+    if (!req.url.includes("api/authenticate")) {
+      let currentUser = this.authService.currentUserValue;
+      if (currentUser && currentUser.token) {
+        req = req.clone({
+          setHeaders: {
+            Authorization: `Bearer ${currentUser.token}`
+          }
+        });
+      }
     }
 
     if (!headerChangeReq) {
