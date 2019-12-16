@@ -55,5 +55,5 @@
 <mat-dialog-actions fxLayoutAlign="end">
     <button mat-button mat-dialog-close>Cancel</button>
     <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
-    <button mat-button [disabled]="!crmForm.valid" color="primary">Save</button>
+    <button mat-button (click)=" oncrmFormSubmit()" [disabled]="!crmForm.valid" color="primary">Save</button>
 </mat-dialog-actions>

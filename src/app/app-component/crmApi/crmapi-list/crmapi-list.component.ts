@@ -8,6 +8,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { MatTableDataSource, MatSort, MatPaginator,MatDialog} from '@angular/material';
 import {AuthenticationService} from '../../../services/authentication.service';
 import { CrmapiAddComponent } from '../crmapi-add-modal/crmapi-add.component';
+import { NotificationService } from 'src/app/core/notification.service';
 
 
 @Component({
@@ -30,10 +31,11 @@ export class CrmapiListComponent implements OnInit {
     private location:Location,
     private authenticationService: AuthenticationService,
     private cookieService: CookieService,
-    public dialog: MatDialog
-  ) { 
+    public dialog: MatDialog,
+    private notification: NotificationService
+  ) {
         // redirect to home if not logged in
-        if (!this.authenticationService.currentUserValue) { 
+        if (!this.authenticationService.currentUserValue) {
           this.location.replaceState('/');
           this.router.navigate(['login']);
         }
@@ -42,7 +44,10 @@ export class CrmapiListComponent implements OnInit {
   ngOnInit() {
 
     this.getAllCRMapis();
-
+    this.notification.error('An unexpected internal error has occurred.', 'Error', {
+      closeButton: true,
+      timeOut: 5000
+    });
 
   }
 

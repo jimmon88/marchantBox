@@ -63,6 +63,8 @@ import { LoginCrmComponent } from './app-component/login-crm/login-crm.component
 import { CrmapiAddComponent } from './app-component/crmApi/crmapi-add-modal/crmapi-add.component';
 import { HttpRequestInterceptorService } from './core/http-request-interceptor.service';
 import { AuthenticationService } from './services/authentication.service';
+import { ToastrModule } from 'ngx-toastr';
+import { CommonModule } from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
@@ -124,7 +126,13 @@ import { AuthenticationService } from './services/authentication.service';
     MatTabsModule,
     MatTooltipModule,
     FlexLayoutModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ToastrModule.forRoot({
+      timeOut: 3000,
+      positionClass: 'toast-bottom-right'
+    }),
+    BrowserAnimationsModule,
+    CommonModule
   ],
   providers: [DashboardService, AuthenticationService, CookieService, { provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptorService, multi: true }],
   entryComponents: [CrmapiAddComponent],
