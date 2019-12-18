@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -65,6 +65,7 @@ import { HttpRequestInterceptorService } from './core/http-request-interceptor.s
 import { AuthenticationService } from './services/authentication.service';
 import { ToastrModule } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
+import { AppErrorHandler } from './core/app-error-handler';
 @NgModule({
   declarations: [
     AppComponent,
@@ -134,7 +135,7 @@ import { CommonModule } from '@angular/common';
     BrowserAnimationsModule,
     CommonModule
   ],
-  providers: [DashboardService, AuthenticationService, CookieService, { provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptorService, multi: true }],
+  providers: [DashboardService, AuthenticationService, CookieService, { provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptorService, multi: true }, {provide: ErrorHandler,useClass: AppErrorHandler}],
   entryComponents: [CrmapiAddComponent],
   bootstrap: [AppComponent]
 })

@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { Config } from '../core/config';
 import { tap, catchError } from 'rxjs/operators';
 import { NotificationService } from '../core/notification.service';
+import { HttpError } from '../model/http-error.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,11 +15,11 @@ export class CrmapiService {
 
   constructor(private http: HttpClient, private router: Router, private notification: NotificationService) { }
 
-  addCrmApis(product): Observable<CrmapiListsItem> {
-    return this.http.post<CrmapiListsItem>(Config.URLS.crmapiAdd, product).pipe(
-      tap((crmadd: CrmapiListsItem) => console.log(`added product w/ id=${crmadd.id}`)),
-      catchError((error) => {
-        this.notification.error(error);
+  addCrmApis(item): Observable<CrmapiListsItem> {
+    return this.http.post<CrmapiListsItem>(Config.URLS.crmapiAdd , item).pipe(
+      tap((crmadd: CrmapiListsItem) => console.log(`added crm api  id=${crmadd.id}`)),
+      catchError((error: HttpError) => {
+        this.notification.error(error.message);
         return this.handleError<CrmapiListsItem>('addCrmApis')
       })
     );

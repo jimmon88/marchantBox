@@ -5,16 +5,17 @@ import { CrmapiListsItem } from '../../../model/apilist.model';
 import { Router, ActivatedRoute } from "@angular/router";
 import { CookieService } from 'ngx-cookie-service';
 
-import { MatTableDataSource, MatSort, MatPaginator,MatDialog} from '@angular/material';
-import {AuthenticationService} from '../../../services/authentication.service';
+import { MatTableDataSource, MatSort, MatPaginator, MatDialog } from '@angular/material';
+import { AuthenticationService } from '../../../services/authentication.service';
 import { CrmapiAddComponent } from '../crmapi-add-modal/crmapi-add.component';
 import { NotificationService } from 'src/app/core/notification.service';
+import { ApplicationStateService } from 'src/app/services/application-state.service';
 
 
 @Component({
   selector: 'app-crmapi-list',
   templateUrl: './crmapi-list.component.html',
-  styleUrls: ['./crmapi-list.component.sass']
+  styleUrls: ['./crmapi-list.component.scss']
 })
 export class CrmapiListComponent implements OnInit {
 
@@ -27,27 +28,28 @@ export class CrmapiListComponent implements OnInit {
   @ViewChild(MatSort, { static: false }) sort: MatSort;
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
 
-  constructor(public productService: DashboardService,private router: Router,
-    private location:Location,
+  constructor(public productService: DashboardService, private router: Router,
+    private location: Location,
     private authenticationService: AuthenticationService,
     private cookieService: CookieService,
     public dialog: MatDialog,
-    private notification: NotificationService
+    private notification: NotificationService,
+    private ApplicationStateService: ApplicationStateService,
+
   ) {
-        // redirect to home if not logged in
-        if (!this.authenticationService.currentUserValue) {
-          this.location.replaceState('/');
-          this.router.navigate(['login']);
-        }
+    // redirect to home if not logged in
+    if (!this.authenticationService.currentUserValue) {
+      this.location.replaceState('/');
+      this.router.navigate(['login']);
+    }
   }
 
   ngOnInit() {
 
     this.getAllCRMapis();
-    this.notification.error('An unexpected internal error has occurred.', 'Error', {
-      closeButton: true,
-      timeOut: 5000
-    });
+    this.ApplicationStateService.onCrmAPItState().subscribe(() => {
+      this.getAllCRMapis();
+    })
 
   }
 

@@ -16,7 +16,7 @@ import {AuthenticationService} from '../../services/authentication.service';
 @Component({
   selector: 'app-login-crm',
   templateUrl: './login-crm.component.html',
-  styleUrls: ['./login-crm.component.sass']
+  styleUrls: ['./login-crm.component.scss']
 })
 export class LoginCrmComponent implements OnInit {
   login: loginModel = new loginModel();
@@ -26,7 +26,7 @@ export class LoginCrmComponent implements OnInit {
   showErrorMessage;
   LoginViewpage;
   error = '';
-  
+
   constructor(
     private http: HttpClient,
     private formBuilder: FormBuilder,
@@ -37,12 +37,12 @@ export class LoginCrmComponent implements OnInit {
 
   ) {
       // redirect to home if already logged in
-      if (this.authenticationService.currentUserValue) { 
+      if (this.authenticationService.currentUserValue) {
         this.router.navigate(['dashboards']);
     }
   }
 
-      
+
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -73,7 +73,7 @@ get f() { return this.loginForm.controls; }
                 error => {
                     this.error = error;
                 });
-               
+
 }
 
 }

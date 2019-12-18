@@ -17,7 +17,7 @@ import {AuthenticationService} from '../../services/authentication.service';
 @Component({
   selector: 'app-user-edit',
   templateUrl: './user-edit.component.html',
-  styleUrls: ['./user-edit.component.sass']
+  styleUrls: ['./user-edit.component.scss']
 })
 export class UserEditComponent implements OnInit {
   user: UsersAddModel = new UsersAddModel();
@@ -54,11 +54,11 @@ export class UserEditComponent implements OnInit {
   isLoadingResults = false;
   onuserFormSubmit(){
     const headers = new HttpHeaders({
-      'Content-Type': 'application/json', 
-      'Access-Control-Allow-Origin': '*' 
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*'
     });
-     
-   
+
+
         this.formUserval = {users_name:this.user.users_name, user_desc:this.user.user_desc,
           users_status:this.user.users_status,users_id:this.user.users_id};
       this.productService.updateProduct(this.id, this.formUserval)
@@ -70,21 +70,21 @@ export class UserEditComponent implements OnInit {
         this.isLoadingResults = false;
       }
     );
-       
+
     }
     getUser(id) {
       this.productService.getUser(id).subscribe(
         data => {
         this.id = data[0].id;
         this.userForm.setValue({
-          
+
           users_name: data[0].user_name,
           user_desc: data[0].user_desc,
           users_id: data[0].users_id,
           users_status: data[0].users_status,
-          
+
         });
-      }); 
+      });
     }
 
     ngOnInit() {
@@ -93,12 +93,12 @@ export class UserEditComponent implements OnInit {
 
       if (!this.cookiesVal) {
         this.location.replaceState('/');
-        this.router.navigate(['/']); 
+        this.router.navigate(['/']);
       }
       this.productService.sendGetRequest().subscribe((data: any[])=>{
         //console.log(data);
         this.products = data;
-      }) 
+      })
       this.getUser(this.route.snapshot.params['id']);
       this.userForm = this.formBuilder.group({
         'users_name':[this.user.users_name,[
@@ -109,11 +109,11 @@ export class UserEditComponent implements OnInit {
         ]],
         'user_desc':[this.user.user_desc,[
         ]],
-        
-        'users_status':[this.user.users_status,[ 
-          Validators.required     
+
+        'users_status':[this.user.users_status,[
+          Validators.required
         ]]
-       
+
       });
       }
 

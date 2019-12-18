@@ -15,7 +15,7 @@ import { Location } from '@angular/common';
 @Component({
   selector: 'app-main-nav',
   templateUrl: './main-nav.component.html',
-  styleUrls: ['./main-nav.component.sass']
+  styleUrls: ['./main-nav.component.scss']
 })
 export class MainNavComponent {
 

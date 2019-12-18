@@ -84,3 +84,11 @@
         </div>
     </mat-card>
 </div>
+<ng-template #noData>
+    <div id="content">
+        No Data Added
+    </div>
+</ng-template>
+<ng-template #loading>
+    <div *ngIf="loading" class="loader">Loading...</div>
+</ng-template>

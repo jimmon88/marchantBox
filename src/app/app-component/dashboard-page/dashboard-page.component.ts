@@ -10,7 +10,7 @@ import {AuthenticationService} from '../../services/authentication.service';
 @Component({
   selector: 'app-dashboard-page',
   templateUrl: './dashboard-page.component.html',
-  styleUrls: ['./dashboard-page.component.sass']
+  styleUrls: ['./dashboard-page.component.scss']
 })
 export class DashboardPageComponent implements OnInit {
   myBackgroundImageUrl = 'https://www.terypurevigor.com/tryfree/cb/assets/images/bulb_icons.png'
@@ -26,15 +26,15 @@ export class DashboardPageComponent implements OnInit {
   ) {
       // redirect to home if not logged in
       if (!this.authenticationService.currentUserValue) {
-        this.location.replaceState('/'); 
+        this.location.replaceState('/');
         this.router.navigate(['login']);
       }
 
    }
   //*ngIf="!auth.loggedIn
-  
+
   ngOnInit() {
-   
+
   }
 
 }

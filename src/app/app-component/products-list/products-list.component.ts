@@ -15,7 +15,7 @@ import {AuthenticationService} from '../../services/authentication.service';
 @Component({
   selector: 'app-products-list',
   templateUrl: './products-list.component.html',
-  styleUrls: ['./products-list.component.sass']
+  styleUrls: ['./products-list.component.scss']
 })
 export class ProductsListComponent implements OnInit, AfterViewInit  {
 
@@ -38,16 +38,16 @@ export class ProductsListComponent implements OnInit, AfterViewInit  {
     private cookieService: CookieService,
     private authenticationService: AuthenticationService
 
-    ) { 
+    ) {
       // redirect to home if not logged in
       if (!this.authenticationService.currentUserValue) {
-        this.location.replaceState('/'); 
+        this.location.replaceState('/');
         this.router.navigate(['login']);
     }
     }
-    
 
-  ngOnInit() { 
+
+  ngOnInit() {
 
     this.toolbarVal = {icon:'', title:'Products-List',path:''};
     this.authenticationService.storeTitleval(this.toolbarVal);
@@ -66,7 +66,7 @@ export class ProductsListComponent implements OnInit, AfterViewInit  {
     .subscribe(res => {
       this.isLoading = false;
       this.dataSource.data = res as ProductsListsItem[];
-      
+
     })
   }
 

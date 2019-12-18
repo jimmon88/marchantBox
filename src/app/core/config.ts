@@ -19,6 +19,7 @@ export class Config {
     backendLiveURL: environment.apiUrl + "api/get",
     GetProducts: environment.apiUrl + "api/productGet",
     backendUserdetailURL: environment.apiUrl + "api/userGetdetails",
+
     crmapiAdd: environment.apiUrl + "api/apiaddCrmApis",
     apiListCrmApis: environment.apiUrl + "api/apiListCrmApis",
     apiauthenticate: environment.apiUrl + "api/authenticate"
