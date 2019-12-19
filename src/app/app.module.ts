@@ -66,6 +66,7 @@ import { AuthenticationService } from './services/authentication.service';
 import { ToastrModule } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import { AppErrorHandler } from './core/app-error-handler';
+import { LoaderComponent } from './core/components/loader/loader.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -80,7 +81,8 @@ import { AppErrorHandler } from './core/app-error-handler';
     UsersListComponent,
     LoginCrmComponent,
     CrmapiListComponent,
-    CrmapiAddComponent
+    CrmapiAddComponent,
+    LoaderComponent
 
 
   ],

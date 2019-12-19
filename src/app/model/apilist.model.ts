@@ -1,8 +1,8 @@
 export interface CrmapiListsItem {
-  crm_label: String;
-  crm_apiUsername: String;
-  crm_apiPassword: String;
-  crm_apiType: String;
-  crm_apiEndpoint: String;
+  crm_label: string;
+  crm_apiUsername: string;
+  crm_apiPassword: string;
+  crm_apiType: string;
+  crm_apiEndpoint: string;
   id: number;
 }

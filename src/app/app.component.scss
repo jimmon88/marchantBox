@@ -1,20 +1,20 @@
-.loader {
+.lessons-list::ng-deep .loader {
     height: 2em;
     display: block;
     line-height: 2em;
     text-align: center;
     position: relative;
-    color: $medium-grey !important;
+    color: #8e8e8e !important;
 }
 
-.loader:before {
+.lessons-list::ng-deep .loader:before {
     content: ' ';
     position: absolute;
     top: 0;
     left: 0;
     width: 20%;
     height: 2px;
-    background: $primary-color;
+    background: #0b65bb;
     animation: loader-animation 2s ease-out infinite;
 }
 

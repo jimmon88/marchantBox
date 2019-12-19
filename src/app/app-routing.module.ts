@@ -29,7 +29,7 @@ const routes: Routes = [
   {
     path: 'product-edit/:id',
     component: ProductEditComponent,
-  },  
+  },
   {
     path: 'user-add',
     component: UserAddComponent,
@@ -49,13 +49,13 @@ const routes: Routes = [
 
   {
     path: '',
-    component: NavbarComponent,
+    component: LoginCrmComponent,
   },
   {
     path: 'login',
     component: LoginCrmComponent,
   },
-  
+
 ];
 
 @NgModule({

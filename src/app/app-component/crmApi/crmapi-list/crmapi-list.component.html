@@ -9,19 +9,18 @@
                 <div class="mat-button-focus-overlay"></div>
             </a>
         </div>
-        <div fxLayout="row">
-            <div fxFlex="5" class="action-blurb" fxFlexOffset="2"></div>
-            <div fxFlex="80" class="action-blurb" fxFlexOffset="5">
+        <div fxLayout="row" fxLayoutAlign="center">
+            <div fxFlex="80" class="action-blurb">
 
-                <div align="right">
+                <div>
                     <mat-card-header>
-                        <mat-card-title>API-List</mat-card-title>
+                        <mat-card-title>CRM Api-List</mat-card-title>
                     </mat-card-header>
                 </div>
 
                 <div class="mat-elevation-z6">
                     <div>
-                        <mat-table [dataSource]="dataSource" matSort matSortStart="desc">
+                        <mat-table [dataSource]="dataSource" matSort matSortStart="desc" (matSortChange)="sortData($event)">
                             <ng-container matColumnDef="crm_label">
                                 <mat-header-cell *matHeaderCellDef mat-sort-header>Api Label</mat-header-cell>
                                 <mat-cell *matCellDef="let crm"> {{crm.crm_label}} </mat-cell>
@@ -80,15 +79,14 @@
 
 
             </div>
-            <div fxFlex="5" class="action-blurb" fxFlexOffset="2"></div>
         </div>
+
     </mat-card>
+
 </div>
 <ng-template #noData>
     <div id="content">
         No Data Added
     </div>
 </ng-template>
-<ng-template #loading>
-    <div *ngIf="loading" class="loader">Loading...</div>
-</ng-template>
+<app-loader [show]="isLoading" [overlay]="overlay"></app-loader>
