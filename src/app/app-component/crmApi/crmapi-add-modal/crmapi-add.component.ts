@@ -28,7 +28,7 @@ export class CrmapiAddComponent implements OnInit {
     private location: Location,
     private formBuilder: FormBuilder,
     private router: Router,
-    private CrmapiService: CrmapiService,
+    private crmapiService: CrmapiService,
     public dialogRef: MatDialogRef<CrmapiAddComponent>,
     public notification: NotificationService,
     private ApplicationStateService: ApplicationStateService,
@@ -69,7 +69,7 @@ export class CrmapiAddComponent implements OnInit {
     if (this.crmForm.valid) {
       this.formProductval = { crm_label: this.crmForm.value.crm_label, crm_apiUsername: this.crmForm.value.crm_apiUsername, crm_apiPassword: this.crmForm.value.crm_apiPassword, crm_apiEndpoint: this.crmForm.value.crm_apiEndpoint, crm_apiType: this.crmForm.value.crm_apiType }
       console.log(this.formProductval)
-      this.CrmapiService.addCrmApis(this.formProductval)
+      this.crmapiService.addCrmApis(this.formProductval)
         .subscribe(res => {
           let id = res['_id'];
           this.notification.success('CRM Api added successfully', 'Success', {

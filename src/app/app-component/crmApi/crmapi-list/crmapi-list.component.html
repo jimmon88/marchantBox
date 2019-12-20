@@ -41,11 +41,10 @@
                                 <mat-header-cell *matHeaderCellDef mat-sort-header> Api Password </mat-header-cell>
                                 <mat-cell *matCellDef="let crm"> {{crm.crm_apiPassword}} </mat-cell>
                             </ng-container>
-
-                            <ng-container>
-                                <mat-header-cell *matHeaderCellDef mat-sort-header> Active </mat-header-cell>
+                            <ng-container matColumnDef="active">
+                                <mat-header-cell *matHeaderCellDef> Active </mat-header-cell>
                                 <mat-cell *matCellDef="let crm">
-                                    <mat-slide-toggle>Slide me!</mat-slide-toggle>
+                                    <mat-slide-toggle [checked]="true"> </mat-slide-toggle>
                                 </mat-cell>
                             </ng-container>
                             <ng-container matColumnDef="action">
@@ -56,22 +55,22 @@
                                 </mat-cell>
                             </ng-container>
 
-                            <ng-container matColumnDef="loading">
+                            <!-- <ng-container matColumnDef="loading">
                                 <mat-footer-cell *matFooterCellDef colspan="6">
                                     <mat-progress-spinner [mode]="'indeterminate'">
                                     </mat-progress-spinner>
                                 </mat-footer-cell>
-                            </ng-container>
+                            </ng-container> -->
                             <ng-container matColumnDef="noData">
                                 <mat-footer-cell *matFooterCellDef colspan="6">
-                                    No data Avaliable ...
+                                    No data Avaliable
                                 </mat-footer-cell>
                             </ng-container>
 
                             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-                            <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':dataSource!=null}"></mat-footer-row>
-                            <!-- <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':dataSource!=null && dataSource.data.length==0 }"></mat-footer-row> -->
+                            <!-- <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':dataSource!=null}"></mat-footer-row> -->
+                            <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide': dataSource.data.length!=0 }"></mat-footer-row>
                         </mat-table>
                         <mat-paginator [length]="dataSource?.data.length" [pageIndex]="0" [pageSize]="50" [pageSizeOptions]="[25, 50, 100, 250]">
                         </mat-paginator>
@@ -85,9 +84,9 @@
     </mat-card>
 
 </div>
-<ng-template #noData>
+<!-- <ng-template #noData>
     <div id="content">
         No Data Added
     </div>
-</ng-template>
+</ng-template> -->
 <app-loader [show]="isLoading" [overlay]="overlay"></app-loader>

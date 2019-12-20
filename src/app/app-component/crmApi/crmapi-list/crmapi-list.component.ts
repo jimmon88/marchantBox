@@ -10,6 +10,9 @@ import { AuthenticationService } from '../../../services/authentication.service'
 import { CrmapiAddComponent } from '../crmapi-add-modal/crmapi-add.component';
 import { NotificationService } from 'src/app/core/notification.service';
 import { ApplicationStateService } from 'src/app/services/application-state.service';
+import { CrmapiService } from 'src/app/services/crmapi.service';
+import { catchError } from 'rxjs/operators';
+import { HttpError } from 'src/app/model/http-error.model';
 
 
 @Component({
@@ -24,18 +27,19 @@ export class CrmapiListComponent implements OnInit {
   cookiesVal;
   sortedData: CrmapiListsItem[];
 
-  public displayedColumns = ['crm_label', 'crm_apiUsername', 'crm_apiPassword', 'crm_apiType', 'action'];
+  public displayedColumns = ['crm_label', 'crm_apiUsername', 'crm_apiPassword', 'crm_apiType', 'active', 'action'];
   public dataSource = new MatTableDataSource<CrmapiListsItem>();
   // @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
 
-  constructor(public productService: DashboardService, private router: Router,
+  constructor(private router: Router,
     private location: Location,
     private authenticationService: AuthenticationService,
     private cookieService: CookieService,
     public dialog: MatDialog,
     private notification: NotificationService,
+    private crmapiService: CrmapiService,
     private ApplicationStateService: ApplicationStateService,
 
   ) {
@@ -59,13 +63,20 @@ export class CrmapiListComponent implements OnInit {
 
   public getAllCRMapis = () => {
     this.isLoading = true;
-    this.productService.getapiCrmData()
+    this.crmapiService.getCrmapi()
       .subscribe(res => {
         this.dataSource.data = res as CrmapiListsItem[];
         this.sortedData = this.dataSource.data.slice();
         this.isLoading = false;
 
+      }, (error) => {
+        this.notification.error(error.message);
+        this.dataSource.data = [];
+        this.sortedData = []
+        this.isLoading = false;
       })
+
+
   }
 
   openDialog(): void {

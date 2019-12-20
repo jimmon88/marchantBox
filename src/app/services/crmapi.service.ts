@@ -16,7 +16,7 @@ export class CrmapiService {
   constructor(private http: HttpClient, private router: Router, private notification: NotificationService) { }
 
   addCrmApis(item): Observable<CrmapiListsItem> {
-    return this.http.post<CrmapiListsItem>(Config.URLS.crmapiAdd , item).pipe(
+    return this.http.post<CrmapiListsItem>(Config.URLS.crmapiAdd, item).pipe(
       tap((crmadd: CrmapiListsItem) => console.log(`added crm api  id=${crmadd.id}`)),
       catchError((error: HttpError) => {
         this.notification.error(error.message);
@@ -27,7 +27,7 @@ export class CrmapiService {
 
 
   public getCrmapi(): Observable<CrmapiListsItem[]> {
-    return this.http.get<CrmapiListsItem[]>(Config.URLS.apiListCrmApis);
+    return this.http.get<CrmapiListsItem[]>(Config.URLS.apiListCrmApis)
   }
 
 
