@@ -11,7 +11,7 @@ import {AuthenticationService} from '../../services/authentication.service';
 @Component({
   selector: 'app-users-list',
   templateUrl: './users-list.component.html',
-  styleUrls: ['./users-list.component.sass']
+  styleUrls: ['./users-list.component.scss']
 })
 export class UsersListComponent implements OnInit {
 
@@ -28,7 +28,7 @@ export class UsersListComponent implements OnInit {
     private router: Router,
     private cookieService: CookieService,
     private location:Location,
-    ) { 
+    ) {
         // redirect to home if not logged in
       if (!this.authenticationService.currentUserValue) {
         this.location.replaceState('/');
@@ -39,7 +39,7 @@ export class UsersListComponent implements OnInit {
   ngOnInit() {
     this.cookiesVal = this.cookieService.get('cookiesVal');
 
-      
+
     this.getAllUsers();
   }
   ngAfterViewInit(): void {
@@ -52,7 +52,7 @@ export class UsersListComponent implements OnInit {
     .subscribe(res => {
       this.isLoading = false;
       this.dataSource.data = res as UsersAddModelList[];
-      
+
     })
   }
   public doFilter = (value: string) => {

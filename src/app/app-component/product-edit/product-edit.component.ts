@@ -17,7 +17,7 @@ import {AuthenticationService} from '../../services/authentication.service';
 @Component({
   selector: 'app-product-edit',
   templateUrl: './product-edit.component.html',
-  styleUrls: ['./product-edit.component.sass']
+  styleUrls: ['./product-edit.component.scss']
 })
 export class ProductEditComponent implements OnInit {
   user: ProductAddModel = new ProductAddModel();
@@ -54,10 +54,10 @@ export class ProductEditComponent implements OnInit {
   isLoadingResults = false;
   onProductFormSubmit(){
     const headers = new HttpHeaders({
-      'Content-Type': 'application/json', 
-      'Access-Control-Allow-Origin': '*' 
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*'
     });
-      
+
         this.formProductval = {product_name:this.user.product_name, product_desc:this.user.product_desc,
         product_status:this.user.product_status,product_id:this.user.product_id};
       this.productService.updateProductname(this.id, this.formProductval)
@@ -69,7 +69,7 @@ export class ProductEditComponent implements OnInit {
         this.isLoadingResults = false;
       }
     );
-       
+
     }
     getProduct(id) {
       //alert(id);getProduct
@@ -78,13 +78,13 @@ export class ProductEditComponent implements OnInit {
         data => {
         this.id = data[0].id;
         this.productForm.setValue({
-          
+
           product_status: data[0].product_status,
           product_name: data[0].product_name,
           product_desc: data[0].product_desc,
           product_id: data[0].product_id,
         });
-      }); 
+      });
     }
    // data => console.log(data[0].product_name),
     ngOnInit() {
@@ -93,7 +93,7 @@ export class ProductEditComponent implements OnInit {
       if (!this.cookiesVal) {
         //alert(this.auth.loggedIn);
         this.location.replaceState('/');
-        this.router.navigate(['/']); 
+        this.router.navigate(['/']);
     }
       this.getProduct(this.route.snapshot.params['id']);
       this.productForm = this.formBuilder.group({
@@ -101,11 +101,11 @@ export class ProductEditComponent implements OnInit {
           Validators.required
         ]],
         'product_desc':[this.user.product_desc,[
-          
+
         ]],
-        'product_status':[this.user.product_desc,[      
+        'product_status':[this.user.product_desc,[
         ]],
-       
+
         'product_id':[this.user.product_id,[
           Validators.required
         ]]

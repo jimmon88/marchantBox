@@ -1,0 +1,28 @@
+.lessons-list::ng-deep .loader {
+    height: 2em;
+    display: block;
+    line-height: 2em;
+    text-align: center;
+    position: relative;
+    color: #8e8e8e !important;
+}
+
+.lessons-list::ng-deep .loader:before {
+    content: ' ';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 20%;
+    height: 2px;
+    background: #0b65bb;
+    animation: loader-animation 2s ease-out infinite;
+}
+
+@keyframes loader-animation {
+    0% {
+        transform: translate(0%);
+    }
+    100% {
+        transform: translate(500%);
+    }
+}
