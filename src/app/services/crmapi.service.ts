@@ -25,6 +25,27 @@ export class CrmapiService {
     );
   }
 
+  activateCrmapi(apiId, status): Observable<CrmapiListsItem> {
+    return this.http.post<CrmapiListsItem>(Config.URLS.crmapiActivate, { id: apiId, activate: status }).pipe(
+      tap((crmadd: CrmapiListsItem) => console.log(`activated crm api  id=${apiId}`)),
+      catchError((error: HttpError) => {
+        this.notification.error(error.message);
+        return this.handleError<CrmapiListsItem>('activatedApi')
+      })
+    );
+  }
+
+  deleteCrmApi(apiId): Observable<CrmapiListsItem> {
+    return this.http.post<CrmapiListsItem>(Config.URLS.crmapiDelete, { id: apiId,
+     }).pipe(
+      tap((crmadd: CrmapiListsItem) => console.log(`deleted crm api  id=${apiId}`)),
+      catchError((error: HttpError) => {
+        this.notification.error(error.message);
+        return this.handleError<CrmapiListsItem>('deletededApi')
+      })
+    );
+  }
+
 
   public getCrmapi(): Observable<CrmapiListsItem[]> {
     return this.http.get<CrmapiListsItem[]>(Config.URLS.apiListCrmApis)

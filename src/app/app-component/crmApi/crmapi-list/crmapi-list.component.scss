@@ -1,11 +1,30 @@
 .hide {
-	display: none;
+    display: none;
 }
 
 mat-footer-row mat-footer-cell {
-	justify-content: center;
+    justify-content: center;
 }
 
 .matcard {
-	height: calc(100vh - 74px);
+    height: calc(100vh - 74px);
+}
+
+.mat-elevation-z6 {
+    max-height: calc(100% - 42px);
+    overflow: auto;
+}
+
+.mat-paginator-sticky {
+    bottom: 0px;
+    position: sticky;
+    z-index: 10;
+}
+
+.header {
+    height: 56px;
+}
+
+.content {
+    height: calc(100% - 56px);
 }
