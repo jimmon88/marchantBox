@@ -1,0 +1,13 @@
+.hide {
+  display: none;
+}
+mat-footer-row mat-footer-cell {
+  justify-content: center;
+}
+.matcard {
+  height: calc(100vh - 74px);
+}
+.mat-elevation-z6 {
+  height: 100%;
+  overflow: auto;
+}

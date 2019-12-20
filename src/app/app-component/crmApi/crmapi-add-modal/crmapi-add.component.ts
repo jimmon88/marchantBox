@@ -1,25 +1,28 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormsModule, NgForm } from '@angular/forms';
+import { Component, OnInit, Inject } from "@angular/core";
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  FormsModule,
+  NgForm
+} from "@angular/forms";
 import { Router } from "@angular/router";
-import { Location } from '@angular/common';
-import { CrmapiModelLists } from 'src/app/model/addapi.model';
-import { Config } from 'src/app/core/config';
-import { Api } from 'src/app/model/api.model';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { CrmapiService } from 'src/app/services/crmapi.service';
-import { NotificationService } from 'src/app/core/notification.service';
-import { ApplicationStateService } from 'src/app/services/application-state.service';
-
+import { Location } from "@angular/common";
+import { CrmapiModelLists } from "src/app/model/addapi.model";
+import { Config } from "src/app/core/config";
+import { Api } from "src/app/model/api.model";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material";
+import { CrmapiService } from "src/app/services/crmapi.service";
+import { NotificationService } from "src/app/core/notification.service";
+import { ApplicationStateService } from "src/app/services/application-state.service";
 
 @Component({
-  selector: 'app-crmapi-add',
-  templateUrl: './crmapi-add.component.html',
-  styleUrls: ['./crmapi-add.component.scss']
+  selector: "app-crmapi-add",
+  templateUrl: "./crmapi-add.component.html",
+  styleUrls: ["./crmapi-add.component.scss"]
 })
-
 export class CrmapiAddComponent implements OnInit {
-
-  apis: Api[] = Config.APILIST
+  apis: Api[] = Config.APILIST;
 
   crm: CrmapiModelLists = new CrmapiModelLists();
   crmForm: FormGroup;
@@ -40,48 +43,62 @@ export class CrmapiAddComponent implements OnInit {
   auth0Subvalue;
   cookiesVal;
   formProductval;
+  formType: string;
 
   ngOnInit() {
-
+    this.crm = this.data;
     this.crmForm = this.formBuilder.group({
-      'crm_label': [this.crm.crm_label, [
-        Validators.required
-      ]],
-      'crm_apiUsername': [this.crm.crm_apiUsername, [
-        Validators.required
-      ]],
-
-      'crm_apiPassword': [this.crm.crm_apiPassword, [
-        Validators.required
-      ]],
-      'crm_apiEndpoint': [this.crm.crm_apiPassword, [
-        Validators.required
-      ]],
-
-      'crm_apiType': [this.crm.crm_apiType, [
-        Validators.required
-      ]]
+      crm_label: [this.crm.crm_label, [Validators.required]],
+      crm_apiUsername: [this.crm.crm_apiUsername, [Validators.required]],
+      crm_apiPassword: [this.crm.crm_apiPassword, [Validators.required]],
+      crm_apiEndpoint: [this.crm.crm_apiPassword, [Validators.required]],
+      crm_apiType: [this.crm.crm_apiType, [Validators.required]]
     });
   }
 
-
   oncrmFormSubmit() {
     if (this.crmForm.valid) {
-      this.formProductval = { crm_label: this.crmForm.value.crm_label, crm_apiUsername: this.crmForm.value.crm_apiUsername, crm_apiPassword: this.crmForm.value.crm_apiPassword, crm_apiEndpoint: this.crmForm.value.crm_apiEndpoint, crm_apiType: this.crmForm.value.crm_apiType }
-      console.log(this.formProductval)
-      this.crmapiService.addCrmApis(this.formProductval)
-        .subscribe(res => {
-          let id = res['_id'];
-          this.notification.success('CRM Api added successfully', 'Success', {
-            closeButton: true,
-            timeOut: 5000
-          });
-          this.ApplicationStateService.setCrmAPIState({ add: true });
-          this.dialogRef.close();
-        }, (err) => {
-          console.log(err);
-        });
+      this.formProductval = {
+        crm_label: this.crmForm.value.crm_label,
+        crm_apiUsername: this.crmForm.value.crm_apiUsername,
+        crm_apiPassword: this.crmForm.value.crm_apiPassword,
+        crm_apiEndpoint: this.crmForm.value.crm_apiEndpoint,
+        crm_apiType: this.crmForm.value.crm_apiType
+      };
+      if (this.crm.id) {
+        this.formProductval.id = this.crm.id;
+      }
+      console.log(this.formProductval);
+      this.crmapiService.addCrmApis(this.formProductval).subscribe(
+        res => {
+          if (this.crm.id) {
+            let id = res["_id"];
+            this.notification.success(
+              "CRM Api updated successfully",
+              "Success",
+              {
+                closeButton: true,
+                timeOut: 5000
+              }
+            );
+            this.ApplicationStateService.setCrmAPIState({
+              edit: this.formProductval
+            });
+          } else {
+            let id = res["_id"];
+            this.notification.success("CRM Api added successfully", "Success", {
+              closeButton: true,
+              timeOut: 5000
+            });
+            this.ApplicationStateService.setCrmAPIState({ add: true });
+          }
 
+          this.dialogRef.close();
+        },
+        err => {
+          console.log(err);
+        }
+      );
     }
 
     //   this.http.post(this.backendLiveURL,this.formProductval,{headers})
@@ -89,10 +106,8 @@ export class CrmapiAddComponent implements OnInit {
     //    data => console.log(data),
     //    error => console.log(error)
     //  );
-
   }
   closeDialog() {
     this.dialogRef.close();
   }
-
 }

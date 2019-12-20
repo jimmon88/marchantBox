@@ -11,6 +11,7 @@ export class Config {
   ];
 
   static readonly TOKEN_NAME = 'access_token';
+  static readonly PAGE_SIZE = 10;
   static readonly URLS = {
     userGetUrl: environment.apiUrl + "api/getsUserEdit",
     updateProductURL: environment.apiUrl + "api/updateProduct",
@@ -21,6 +22,7 @@ export class Config {
     backendUserdetailURL: environment.apiUrl + "api/userGetdetails",
 
     crmapiAdd: environment.apiUrl + "api/apiaddCrmApis",
+    crmapiActivate: environment.apiUrl + "api/apiaddCrmApis",
     apiListCrmApis: environment.apiUrl + "api/apiListCrmApis",
     apiauthenticate: environment.apiUrl + "api/authenticate"
   }
