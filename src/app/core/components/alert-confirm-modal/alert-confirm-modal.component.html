@@ -1,0 +1,9 @@
+<h2 mat-dialog-title>
+    Confirm</h2>
+<mat-dialog-content>
+    {{msg}}
+</mat-dialog-content>
+<mat-dialog-actions fxLayoutAlign="end">
+    <button mat-button (click)=" closeDialog(false)">Cancel</button>
+    <button mat-button (click)=" closeDialog(true)" color="primary">Confirm</button>
+</mat-dialog-actions>

@@ -23,6 +23,7 @@ export class Config {
 
     crmapiAdd: environment.apiUrl + "api/apiaddCrmApis",
     crmapiActivate: environment.apiUrl + "api/apiaddCrmApis",
+    crmapiDelete: environment.apiUrl + "api/apiaddCrmApis",
     apiListCrmApis: environment.apiUrl + "api/apiListCrmApis",
     apiauthenticate: environment.apiUrl + "api/authenticate"
   }

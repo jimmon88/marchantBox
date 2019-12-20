@@ -21,6 +21,7 @@ import { catchError } from "rxjs/operators";
 import { HttpError } from "src/app/model/http-error.model";
 import { Api } from "src/app/model/api.model";
 import { Config } from "src/app/core/config";
+import { AlertConfirmModalComponent } from "src/app/core/components/alert-confirm-modal/alert-confirm-modal.component";
 
 @Component({
   selector: "app-crmapi-list",
@@ -175,6 +176,29 @@ export class CrmapiListComponent implements OnInit {
     const start = this.currentPage * this.pageSize;
     const part = this.array.slice(start, end);
     this.dataSource = new MatTableDataSource<CrmapiListsItem>(part);
+  }
+  deleteCrm(data) {
+    let alertdialogRef = this.dialog.open(AlertConfirmModalComponent, {
+      width: "500px",
+      data: { message: "are you sure want to deele" }
+    });
+    let _this = this;
+    alertdialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      console.log(data);
+      if (result) {
+        _this.crmapiService.deleteCrmApi(data.id).subscribe(
+          res => {
+            _this.notification.success(
+              "API '" + data.crm_label + "' deleted successfully"
+            );
+          },
+          error => {
+            _this.notification.error(error.message);
+          }
+        );
+      }
+    });
   }
 }
 
