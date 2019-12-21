@@ -85,10 +85,10 @@ export class CrmapiListComponent implements OnInit {
   public getAllCRMapis = () => {
     this.isLoading = true;
     this.crmapiService.getCrmapi().subscribe(
-      res => {
-        this.dataSource = new MatTableDataSource<CrmapiListsItem>(res);
+      (res) => {
+        this.dataSource = new MatTableDataSource<CrmapiListsItem>(res.data);
         this.dataSource.paginator = this.paginator;
-        this.array = res;
+        this.array = res.data;
         this.sortedData = this.dataSource.data.slice();
         this.iterator();
         this.isLoading = false;
