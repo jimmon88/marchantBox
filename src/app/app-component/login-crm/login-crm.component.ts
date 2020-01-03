@@ -71,7 +71,7 @@ get f() { return this.loginForm.controls; }
                     this.router.navigate([this.returnUrl]);
                 },
                 error => {
-                    this.error = error;
+                    this.error = error.message;
                 });
 
 }
