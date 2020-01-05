@@ -38,9 +38,11 @@
     </mat-grid-list>
 
 </div> -->
+
+
 <div class="login-container">
-    <mat-card [ngClass]="{'inc-height': error}">
-        <mat-card-title>Login</mat-card-title>
+    <mat-card [ngClass]="{'inc-height': error}" #loginform>
+        <mat-card-title>Marchantbox</mat-card-title>
         <mat-card-content>
             <form class="form" [formGroup]="loginForm" (ngSubmit)="loginForm.valid && onLoginSubmit()" autocomplete="off" novalidate>
                 <p>
@@ -60,7 +62,18 @@
                 </p>
 
                 <div class="button">
-                    <button type="submit" mat-button>Login</button>
+
+                    <button class="btn btn-primary" type="submit" [disabled]="submitted">
+                      <span *ngIf="!submitted else load">
+                        Login
+                      </span>
+                      <ng-template #load>
+                        <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                        <span class="sr-only">Loading...</span>
+                      </ng-template>
+
+                    </button>
+
                 </div>
 
             </form>

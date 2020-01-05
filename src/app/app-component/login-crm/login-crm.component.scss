@@ -62,3 +62,26 @@ mat-card-content {
 .mat-card {
     box-shadow: #0b0d15 15px 15px 29px !important;
 }
+
+.btn-primary {
+    width: 80px;
+}
+
+.wrong-entry {
+    animation: wrong-log 0.3s;
+}
+
+@keyframes wrong-log {
+    0%,
+    100% {
+        left: 0px;
+    }
+    20%,
+    60% {
+        left: 15px;
+    }
+    40%,
+    80% {
+        left: -15px;
+    }
+}
