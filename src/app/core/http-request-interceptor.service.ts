@@ -1,23 +1,24 @@
-import { Injectable } from '@angular/core';
-import { HttpInterceptor, HttpHandler, HttpRequest, HttpErrorResponse } from '@angular/common/http';
+import { Injectable } from "@angular/core";
+import {
+  HttpInterceptor,
+  HttpHandler,
+  HttpRequest,
+  HttpErrorResponse
+} from "@angular/common/http";
 
 // import { NgProgress } from '@ngx-progressbar/core';
 
-import { finalize, catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { finalize, catchError } from "rxjs/operators";
+import { throwError } from "rxjs";
 
-
-
-import { AuthenticationService } from '../services/authentication.service';
-import { HttpError } from '../model/http-error.model';
+import { AuthenticationService } from "../services/authentication.service";
+import { HttpError } from "../model/http-error.model";
 
 @Injectable()
 export class HttpRequestInterceptorService implements HttpInterceptor {
   private _inProgressCount = 0;
 
-  constructor(private authService: AuthenticationService, ) {
-
-  }
+  constructor(private authService: AuthenticationService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
     const started = Date.now();
@@ -25,22 +26,20 @@ export class HttpRequestInterceptorService implements HttpInterceptor {
 
     this._inProgressCount++;
 
-
-
-    if (!req.headers.has('Content-Type')) {
+    if (!req.headers.has("Content-Type")) {
       // add header here
       headerChangeReq = req.clone({
         setHeaders: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json"
         }
       });
     }
 
-    if (!req.headers.has('Accept')) {
+    if (!req.headers.has("Accept")) {
       // add header here
       headerChangeReq = req.clone({
         setHeaders: {
-          Accept: 'application/json'
+          Accept: "application/json"
         }
       });
     }
@@ -65,20 +64,23 @@ export class HttpRequestInterceptorService implements HttpInterceptor {
       catchError((err: any, caught) => {
         if (err instanceof HttpErrorResponse) {
           if (err.status === 401) {
+            if (!err.url.includes("api/authenticate")) {
+              this.authService.logout();
+              location.reload(true);
+            }
+
             // auto logout if 401 response returned from api
-            this.authService.logout();
-            location.reload(true);
           }
-          let errorObj: HttpError = { code: '' };
+          let errorObj: HttpError = { code: "" };
           if (err.error && err.error.code) {
             errorObj = <HttpError>err.error;
           } else {
-            errorObj.code = '' + err.status;
+            errorObj.code = "" + err.status;
             errorObj.message = this.getHTTPMessageByCode(err.status);
           }
           return throwError(errorObj);
         }
-        console.error('unexpected error', err);
+        console.error("unexpected error", err);
       }),
       // Log when response observable either completes or errors
       finalize(() => {
@@ -95,46 +97,47 @@ export class HttpRequestInterceptorService implements HttpInterceptor {
   }
 
   private getHTTPMessageByCode(code: number): string {
-    let message = '';
+    let message = "";
     switch (code) {
       case 400:
-        message = 'The server cannot process the request due to an unknown error';
+        message =
+          "The server cannot process the request due to an unknown error";
         break;
       case 401:
-        message = 'Your session has been expired.';
+        message = "Invalid username or password.";
         break;
       case 404:
-        message = 'The requested resource could not be found.';
+        message = "The requested resource could not be found.";
         break;
       case 408:
-        message = 'The server timed out waiting for the request.';
+        message = "The server timed out waiting for the request.";
         break;
       case 413:
-        message = 'Request Entity Too Large.';
+        message = "Request Entity Too Large.";
         break;
       case 414:
-        message = 'Request-URI Too Long.';
+        message = "Request-URI Too Long.";
         break;
       case 414:
-        message = 'Request-URI Too Long.';
+        message = "Request-URI Too Long.";
         break;
       case 500:
-        message = 'Internal Server Error.';
+        message = "Internal Server Error.";
         break;
       case 501:
-        message = 'The server was unable to fulfill the request.';
+        message = "The server was unable to fulfill the request.";
         break;
       case 502:
-        message = 'Bad Gateway.';
+        message = "Bad Gateway.";
         break;
       case 503:
-        message = 'The server is currently unavailable.';
+        message = "The server is currently unavailable.";
         break;
       case 504:
-        message = 'Gateway Timeout.';
+        message = "Gateway Timeout.";
         break;
       default:
-        message = 'Something went wrong. Please retry.';
+        message = "Something went wrong. Please retry.";
         break;
     }
     return message;
