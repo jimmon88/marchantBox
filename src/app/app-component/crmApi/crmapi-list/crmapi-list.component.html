@@ -71,7 +71,7 @@
                         <!-- <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':dataSource!=null}"></mat-footer-row> -->
                         <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide': array.length!=0 }"></mat-footer-row>
                     </mat-table>
-                    <mat-paginator class="mat-paginator-sticky" [pageIndex]="0" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true" [length]="totalSize" [pageIndex]="currentPage" (page)="pageEvent = handlePage($event)">
+                    <mat-paginator class="mat-paginator-sticky" [pageIndex]="0" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20]" [showFirstLastButtons]="true" [length]="totalSize" [pageIndex]="currentPage">
                     </mat-paginator>
                 </div>
             </div>

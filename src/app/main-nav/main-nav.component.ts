@@ -28,7 +28,7 @@ export class MainNavComponent {
       shareReplay()
     );
 
-  constructor(    private authenticationService: AuthenticationService,
+  constructor(    public authenticationService: AuthenticationService,
     private breakpointObserver: BreakpointObserver,
     private route: ActivatedRoute,
     private location:Location,
